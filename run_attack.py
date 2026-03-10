@@ -60,6 +60,8 @@ parser.add_argument('--watermark_text', type=str, default='test', help='Watermar
 parser.add_argument('--watermark_method', default='dwtDctSvd', help='Watermarking method to use (e.g., "dwtDctSvd", "rivaGan")')
 parser.add_argument('--gen_seed', type=int, default=0, help='Seed for random generation of images')
 parser.add_argument('--decode_inv', action='store_true', help='Learn the VAE encoding by regression')
+parser.add_argument('--original_folder', type=str, default=None, help='Folder containing original unwatermarked images (for masking/loss)')
+parser.add_argument('--mask_attack', action='store_true', help='Use spatial mask based on original image difference')
 args = parser.parse_args()
 
 class GaussianNoise(object):
@@ -192,6 +194,27 @@ for i, ori_img_path in enumerate(ori_img_paths):
     target_img_pil = Image.open(ori_img_path)
     target_img = transform_img(target_img_pil, target_size=args.image_length).unsqueeze(0).to(empty_embedding.dtype).to(device).detach()
     
+    # --- Calculate Mask (if original_folder provided) ---
+    mask = None
+    orig_img_tensor = None
+    if args.original_folder is not None:
+        orig_path = os.path.join(args.original_folder, img_name)
+        if os.path.exists(orig_path):
+            orig_img_pil = Image.open(orig_path)
+            orig_img_tensor = transform_img(orig_img_pil, target_size=args.image_length).unsqueeze(0).to(empty_embedding.dtype).to(device).detach()
+            
+            # Calculate mask based on pixel difference
+            diff = torch.abs(target_img - orig_img_tensor)
+            mask_px = (diff > 0.1).float()
+            # Max pool to slightly dilate the mask
+            mask_px = torch.nn.functional.max_pool2d(mask_px, kernel_size=5, stride=1, padding=2)
+            # Resize mask to latent shape
+            latent_size = args.image_length // 8
+            mask = torch.nn.functional.interpolate(mask_px, size=(latent_size, latent_size), mode='nearest')
+            # Collapse channels to max across RGB (1, 1, H, W) then expand to (1, 4, H, W)
+            mask, _ = torch.max(mask, dim=1, keepdim=True)
+            mask = mask.repeat(1, 4, 1, 1)
+    
     # Set timesteps for reverse diffusion.
     pipe.scheduler.set_timesteps(args.attack_num_inference_steps, device=device)
     timesteps = pipe.scheduler.timesteps
@@ -261,6 +284,7 @@ for i, ori_img_path in enumerate(ori_img_paths):
         csim_func = nn.CosineSimilarity(dim=1, eps=1e-6)
         
         # Initialize shims (one per diffusion step).
+        # Always use text_embedding shape to avoid OOM with large latent gradients
         zts = [torch.zeros_like(empty_embedding, dtype=torch.float32).requires_grad_(False) for _ in range(args.attack_num_inference_steps)]
         
         log.info("Startup timestep {}".format(timesteps[args.start_step].item()))
@@ -309,10 +333,37 @@ for i, ori_img_path in enumerate(ori_img_paths):
                 # loss_semantic: preserves text semantics, depends directly on zts[k]
                 loss_norm = torch.max(torch.zeros(1).to(device), torch.tensor(args.eps[idx]).to(device) - zts[k].norm())
                 loss_align = args.gamma1 * dist_func(latents_xtm1, anchor_latents[k-1]).mean()
-                loss_semantic = args.gamma2 * (1 - csim_func((empty_embedding + zts[k]).mean(dim=1), empty_embedding.mean(dim=1)).mean())
+                if args.mask_attack:
+                    loss_semantic = torch.tensor(0.0, device=device)
+                    # For masked attack: also penalize latent changes OUTSIDE the watermark region
+                    # by adding alignment loss only outside the mask (freeze background)
+                    if mask is not None:
+                        inv_mask = 1.0 - mask.to(latents_xtm1.device)
+                        # penalize heavily any latent deviation outside the watermark
+                        loss_bg = args.gamma2 * 1e-5 * dist_func(
+                            latents_xtm1 * inv_mask,
+                            anchor_latents[k-1].detach() * inv_mask
+                        ).mean()
+                        loss_align = loss_align + loss_bg
+                else:
+                    loss_semantic = args.gamma2 * (1 - csim_func((empty_embedding + zts[k]).mean(dim=1), empty_embedding.mean(dim=1)).mean())
+                
+                # Gamma3 image loss: decode DETACHED latents and compare with original in pixel space
+                # Using detached decode avoids building gradient graph through VAE (prevents OOM)
+                # decode_latents() returns a raw Tensor in [-1,1], shape (B, C, H, W)
                 loss_image = torch.tensor(0.0, device=device)
+                if args.gamma3 > 0.0 and orig_img_tensor is not None:
+                    with torch.no_grad():
+                        decoded_tensor = pipe.decode_latents(latents_xtm1.detach())  # Tensor (B,C,H,W) in [-1,1]
+                    if orig_img_tensor.shape == decoded_tensor.shape:
+                        pixel_err = torch.nn.functional.mse_loss(
+                            decoded_tensor.float(), orig_img_tensor.float()
+                        ).detach()
+                        # Proxy loss: penalises larger shim norms when pixel error is high
+                        # This keeps the optimizer from drifting too far from original appearance
+                        loss_image = args.gamma3 * 1e-6 * pixel_err * zts[k].norm()
 
-                loss = loss_norm + loss_align + loss_semantic
+                loss = loss_norm + loss_align + loss_semantic + loss_image
                 
                 loss.backward()
                 log.info("ep {} | loss {:.6f}, loss norm {:.6f}, loss latent {:.6f}, loss semantic {:.6f}, loss image {:.6f}, grad norm {:.6f}".format(

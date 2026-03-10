@@ -1,0 +1,182 @@
+Info Tue Mar 10 19:34:06 2026 | Arguments: {'target_folder': './test_images/visible', 'start': 0, 'end': 10, 'gpu': 0, 'image_length': 256, 'model_id': 'Manojb/stable-diffusion-2-1-base', 'num_images': 1, 'guidance_scale': 7.5, 'num_inference_steps': 50, 'attack_num_inference_steps': 50, 'output_folder': './evaluation_outputs/visible_baseline', 'start_step': 15, 'shortcut_step': -1, 'iters': 5, 'lr': 0.01, 'gamma1': 0.1, 'gamma2': 100000.0, 'gamma3': 0.001, 'eps': [10.0, 10.0], 'k': [25, 45], 'watermark_text': 'test', 'watermark_method': 'dwtDctSvd', 'gen_seed': 0, 'decode_inv': False, 'original_folder': None, 'mask_attack': False}
+Info Tue Mar 10 19:34:14 2026 | Total images 10
+Info Tue Mar 10 19:34:15 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Tue Mar 10 19:34:21 2026 | Startup timestep 699
+Info Tue Mar 10 19:34:21 2026 | Optimize latent for step 25, timestep 500
+Info Tue Mar 10 19:34:25 2026 | ep 0 | loss 27.327301, loss norm 6.021798, loss latent 0.729980, loss semantic 20.575523, loss image 0.000000, grad norm 1.222313
+Info Tue Mar 10 19:34:29 2026 | ep 1 | loss 23.903439, loss norm 2.575591, loss latent 0.788086, loss semantic 20.539761, loss image 0.000000, grad norm 1.092318
+Info Tue Mar 10 19:34:33 2026 | ep 2 | loss 21.554344, loss norm 0.000000, loss latent 0.788086, loss semantic 20.766258, loss image 0.000000, grad norm 0.636799
+Info Tue Mar 10 19:34:36 2026 | ep 3 | loss 21.300789, loss norm 0.000000, loss latent 0.772949, loss semantic 20.527840, loss image 0.000000, grad norm 0.238686
+Info Tue Mar 10 19:34:40 2026 | ep 4 | loss 21.495733, loss norm 0.000000, loss latent 0.759277, loss semantic 20.736456, loss image 0.000000, grad norm 0.591466
+Info Tue Mar 10 19:34:40 2026 | Optimize latent for step 45, timestep 100
+Info Tue Mar 10 19:34:43 2026 | ep 0 | loss 29.394892, loss norm 6.018587, loss latent 2.800781, loss semantic 20.575523, loss image 0.000000, grad norm 1.017225
+Info Tue Mar 10 19:34:47 2026 | ep 1 | loss 25.888092, loss norm 2.551456, loss latent 2.796875, loss semantic 20.539761, loss image 0.000000, grad norm 1.017257
+Info Tue Mar 10 19:34:51 2026 | ep 2 | loss 23.571148, loss norm 0.000000, loss latent 2.792969, loss semantic 20.778179, loss image 0.000000, grad norm 0.614269
+Info Tue Mar 10 19:34:55 2026 | ep 3 | loss 23.304981, loss norm 0.000000, loss latent 2.789062, loss semantic 20.515919, loss image 0.000000, grad norm 0.146930
+Info Tue Mar 10 19:34:59 2026 | ep 4 | loss 23.497770, loss norm 0.000000, loss latent 2.785156, loss semantic 20.712614, loss image 0.000000, grad norm 0.547759
+Info Tue Mar 10 19:34:59 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 16.81, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.02, 0.00, 0.00, 0.00, 0.00
+Info Tue Mar 10 19:34:59 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Tue Mar 10 19:35:05 2026 | Startup timestep 699
+Info Tue Mar 10 19:35:05 2026 | Optimize latent for step 25, timestep 500
+Info Tue Mar 10 19:35:09 2026 | ep 0 | loss 27.350815, loss norm 6.018456, loss latent 0.756836, loss semantic 20.575523, loss image 0.000000, grad norm 1.019043
+Info Tue Mar 10 19:35:13 2026 | ep 1 | loss 23.837376, loss norm 2.550544, loss latent 0.747070, loss semantic 20.539761, loss image 0.000000, grad norm 1.019671
+Info Tue Mar 10 19:35:16 2026 | ep 2 | loss 21.506004, loss norm 0.000000, loss latent 0.739746, loss semantic 20.766258, loss image 0.000000, grad norm 0.612252
+Info Tue Mar 10 19:35:20 2026 | ep 3 | loss 21.245411, loss norm 0.000000, loss latent 0.729492, loss semantic 20.515919, loss image 0.000000, grad norm 0.154034
+Info Tue Mar 10 19:35:24 2026 | ep 4 | loss 21.433805, loss norm 0.000000, loss latent 0.721191, loss semantic 20.712614, loss image 0.000000, grad norm 0.544931
+Info Tue Mar 10 19:35:24 2026 | Optimize latent for step 45, timestep 100
+Info Tue Mar 10 19:35:27 2026 | ep 0 | loss 29.566917, loss norm 6.026550, loss latent 2.964844, loss semantic 20.575523, loss image 0.000000, grad norm 1.016970
+Info Tue Mar 10 19:35:31 2026 | ep 1 | loss 26.054790, loss norm 2.556046, loss latent 2.958984, loss semantic 20.539761, loss image 0.000000, grad norm 1.018017
+Info Tue Mar 10 19:35:35 2026 | ep 2 | loss 23.721336, loss norm 0.000000, loss latent 2.955078, loss semantic 20.766258, loss image 0.000000, grad norm 0.612878
+Info Tue Mar 10 19:35:39 2026 | ep 3 | loss 23.465137, loss norm 0.000000, loss latent 2.949219, loss semantic 20.515919, loss image 0.000000, grad norm 0.149388
+Info Tue Mar 10 19:35:43 2026 | ep 4 | loss 23.663887, loss norm 0.000000, loss latent 2.945312, loss semantic 20.718575, loss image 0.000000, grad norm 0.547615
+Info Tue Mar 10 19:35:44 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.03, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.03, 0.00, 0.00, 0.00, 0.00
+Info Tue Mar 10 19:35:44 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Tue Mar 10 19:35:50 2026 | Startup timestep 699
+Info Tue Mar 10 19:35:50 2026 | Optimize latent for step 25, timestep 500
+Info Tue Mar 10 19:35:53 2026 | ep 0 | loss 27.097801, loss norm 6.032531, loss latent 0.489746, loss semantic 20.575523, loss image 0.000000, grad norm 1.020355
+Info Tue Mar 10 19:35:57 2026 | ep 1 | loss 23.584949, loss norm 2.568139, loss latent 0.477051, loss semantic 20.539761, loss image 0.000000, grad norm 1.026280
+Info Tue Mar 10 19:36:01 2026 | ep 2 | loss 21.246828, loss norm 0.000000, loss latent 0.474609, loss semantic 20.772219, loss image 0.000000, grad norm 0.687670
+Info Tue Mar 10 19:36:05 2026 | ep 3 | loss 20.982126, loss norm 0.000000, loss latent 0.472168, loss semantic 20.509958, loss image 0.000000, grad norm 0.359704
+Info Tue Mar 10 19:36:09 2026 | ep 4 | loss 21.174141, loss norm 0.000000, loss latent 0.455566, loss semantic 20.718575, loss image 0.000000, grad norm 0.567780
+Info Tue Mar 10 19:36:09 2026 | Optimize latent for step 45, timestep 100
+Info Tue Mar 10 19:36:13 2026 | ep 0 | loss 28.773905, loss norm 6.040178, loss latent 2.158203, loss semantic 20.575523, loss image 0.000000, grad norm 1.018796
+Info Tue Mar 10 19:36:17 2026 | ep 1 | loss 25.267910, loss norm 2.573650, loss latent 2.142578, loss semantic 20.551682, loss image 0.000000, grad norm 1.022668
+Info Tue Mar 10 19:36:21 2026 | ep 2 | loss 22.908937, loss norm 0.000000, loss latent 2.136719, loss semantic 20.772219, loss image 0.000000, grad norm 0.615926
+Info Tue Mar 10 19:36:25 2026 | ep 3 | loss 22.646778, loss norm 0.000000, loss latent 2.130859, loss semantic 20.515919, loss image 0.000000, grad norm 0.153824
+Info Tue Mar 10 19:36:29 2026 | ep 4 | loss 22.843575, loss norm 0.000000, loss latent 2.125000, loss semantic 20.718575, loss image 0.000000, grad norm 0.552432
+Info Tue Mar 10 19:36:29 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 16.96, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 16.98, 0.00, 0.00, 0.00, 0.00
+Info Tue Mar 10 19:36:29 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Tue Mar 10 19:36:36 2026 | Startup timestep 699
+Info Tue Mar 10 19:36:36 2026 | Optimize latent for step 25, timestep 500
+Info Tue Mar 10 19:36:40 2026 | ep 0 | loss 27.099621, loss norm 6.014819, loss latent 0.509277, loss semantic 20.575523, loss image 0.000000, grad norm 1.028760
+Info Tue Mar 10 19:36:44 2026 | ep 1 | loss 23.581289, loss norm 2.549342, loss latent 0.492188, loss semantic 20.539761, loss image 0.000000, grad norm 1.024041
+Info Tue Mar 10 19:36:47 2026 | ep 2 | loss 21.250633, loss norm 0.000000, loss latent 0.484375, loss semantic 20.766258, loss image 0.000000, grad norm 0.622349
+Info Tue Mar 10 19:36:51 2026 | ep 3 | loss 20.982716, loss norm 0.000000, loss latent 0.466797, loss semantic 20.515919, loss image 0.000000, grad norm 0.173520
+Info Tue Mar 10 19:36:55 2026 | ep 4 | loss 21.164173, loss norm 0.000000, loss latent 0.457520, loss semantic 20.706654, loss image 0.000000, grad norm 0.549324
+Info Tue Mar 10 19:36:55 2026 | Optimize latent for step 45, timestep 100
+Info Tue Mar 10 19:36:59 2026 | ep 0 | loss 28.630913, loss norm 6.035857, loss latent 2.019531, loss semantic 20.575523, loss image 0.000000, grad norm 1.022925
+Info Tue Mar 10 19:37:03 2026 | ep 1 | loss 25.115623, loss norm 2.566097, loss latent 2.009766, loss semantic 20.539761, loss image 0.000000, grad norm 1.017240
+Info Tue Mar 10 19:37:07 2026 | ep 2 | loss 22.770164, loss norm 0.000000, loss latent 2.003906, loss semantic 20.766258, loss image 0.000000, grad norm 0.607453
+Info Tue Mar 10 19:37:10 2026 | ep 3 | loss 22.515919, loss norm 0.000000, loss latent 2.000000, loss semantic 20.515919, loss image 0.000000, grad norm 0.152023
+Info Tue Mar 10 19:37:14 2026 | ep 4 | loss 22.700794, loss norm 0.000000, loss latent 1.994141, loss semantic 20.706654, loss image 0.000000, grad norm 0.541957
+Info Tue Mar 10 19:37:15 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.01, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.04, 0.00, 0.00, 0.00, 0.00
+Info Tue Mar 10 19:37:15 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Tue Mar 10 19:37:21 2026 | Startup timestep 699
+Info Tue Mar 10 19:37:21 2026 | Optimize latent for step 25, timestep 500
+Info Tue Mar 10 19:37:25 2026 | ep 0 | loss 27.096861, loss norm 6.049170, loss latent 0.472168, loss semantic 20.575523, loss image 0.000000, grad norm 1.017163
+Info Tue Mar 10 19:37:28 2026 | ep 1 | loss 23.594570, loss norm 2.580587, loss latent 0.468262, loss semantic 20.545721, loss image 0.000000, grad norm 1.022522
+Info Tue Mar 10 19:37:32 2026 | ep 2 | loss 21.213322, loss norm 0.000000, loss latent 0.458984, loss semantic 20.754337, loss image 0.000000, grad norm 0.599611
+Info Tue Mar 10 19:37:36 2026 | ep 3 | loss 20.970509, loss norm 0.000000, loss latent 0.454590, loss semantic 20.515919, loss image 0.000000, grad norm 0.168760
+Info Tue Mar 10 19:37:40 2026 | ep 4 | loss 21.155140, loss norm 0.000000, loss latent 0.448486, loss semantic 20.706654, loss image 0.000000, grad norm 0.539275
+Info Tue Mar 10 19:37:40 2026 | Optimize latent for step 45, timestep 100
+Info Tue Mar 10 19:37:44 2026 | ep 0 | loss 27.868200, loss norm 6.027052, loss latent 1.265625, loss semantic 20.575523, loss image 0.000000, grad norm 1.017031
+Info Tue Mar 10 19:37:48 2026 | ep 1 | loss 24.354250, loss norm 2.554724, loss latent 1.259766, loss semantic 20.539761, loss image 0.000000, grad norm 1.017862
+Info Tue Mar 10 19:37:52 2026 | ep 2 | loss 22.022118, loss norm 0.000000, loss latent 1.255859, loss semantic 20.766258, loss image 0.000000, grad norm 0.612606
+Info Tue Mar 10 19:37:56 2026 | ep 3 | loss 21.765919, loss norm 0.000000, loss latent 1.250000, loss semantic 20.515919, loss image 0.000000, grad norm 0.149185
+Info Tue Mar 10 19:38:00 2026 | ep 4 | loss 21.963692, loss norm 0.000000, loss latent 1.245117, loss semantic 20.718575, loss image 0.000000, grad norm 0.547813
+Info Tue Mar 10 19:38:00 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.01, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.03, 0.00, 0.00, 0.00, 0.00
+Info Tue Mar 10 19:38:01 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Tue Mar 10 19:38:07 2026 | Startup timestep 699
+Info Tue Mar 10 19:38:07 2026 | Optimize latent for step 25, timestep 500
+Info Tue Mar 10 19:38:11 2026 | ep 0 | loss 26.899664, loss norm 6.026533, loss latent 0.297607, loss semantic 20.575523, loss image 0.000000, grad norm 1.031056
+Info Tue Mar 10 19:38:14 2026 | ep 1 | loss 23.493221, loss norm 2.562593, loss latent 0.390869, loss semantic 20.539761, loss image 0.000000, grad norm 1.080100
+Info Tue Mar 10 19:38:18 2026 | ep 2 | loss 21.120750, loss norm 0.000000, loss latent 0.354492, loss semantic 20.766258, loss image 0.000000, grad norm 0.753971
+Info Tue Mar 10 19:38:22 2026 | ep 3 | loss 20.849760, loss norm 0.000000, loss latent 0.327881, loss semantic 20.521879, loss image 0.000000, grad norm 0.696613
+Info Tue Mar 10 19:38:26 2026 | ep 4 | loss 21.030241, loss norm 0.000000, loss latent 0.317627, loss semantic 20.712614, loss image 0.000000, grad norm 0.728344
+Info Tue Mar 10 19:38:27 2026 | Optimize latent for step 45, timestep 100
+Info Tue Mar 10 19:38:30 2026 | ep 0 | loss 28.520300, loss norm 6.033644, loss latent 1.911133, loss semantic 20.575523, loss image 0.000000, grad norm 1.017419
+Info Tue Mar 10 19:38:34 2026 | ep 1 | loss 25.007919, loss norm 2.561909, loss latent 1.906250, loss semantic 20.539761, loss image 0.000000, grad norm 1.017542
+Info Tue Mar 10 19:38:38 2026 | ep 2 | loss 22.667625, loss norm 0.000000, loss latent 1.901367, loss semantic 20.766258, loss image 0.000000, grad norm 0.605728
+Info Tue Mar 10 19:38:42 2026 | ep 3 | loss 22.411427, loss norm 0.000000, loss latent 1.895508, loss semantic 20.515919, loss image 0.000000, grad norm 0.148960
+Info Tue Mar 10 19:38:46 2026 | ep 4 | loss 22.597279, loss norm 0.000000, loss latent 1.890625, loss semantic 20.706654, loss image 0.000000, grad norm 0.540343
+Info Tue Mar 10 19:38:46 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 16.94, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.05, 0.00, 0.00, 0.00, 0.00
+Info Tue Mar 10 19:38:47 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Tue Mar 10 19:38:53 2026 | Startup timestep 699
+Info Tue Mar 10 19:38:53 2026 | Optimize latent for step 25, timestep 500
+Info Tue Mar 10 19:38:57 2026 | ep 0 | loss 27.109009, loss norm 6.019814, loss latent 0.513672, loss semantic 20.575523, loss image 0.000000, grad norm 1.017362
+Info Tue Mar 10 19:39:00 2026 | ep 1 | loss 23.597012, loss norm 2.549926, loss latent 0.507324, loss semantic 20.539761, loss image 0.000000, grad norm 1.017825
+Info Tue Mar 10 19:39:04 2026 | ep 2 | loss 21.274172, loss norm 0.000000, loss latent 0.501953, loss semantic 20.772219, loss image 0.000000, grad norm 0.611342
+Info Tue Mar 10 19:39:08 2026 | ep 3 | loss 21.012501, loss norm 0.000000, loss latent 0.496582, loss semantic 20.515919, loss image 0.000000, grad norm 0.148783
+Info Tue Mar 10 19:39:12 2026 | ep 4 | loss 21.209297, loss norm 0.000000, loss latent 0.490723, loss semantic 20.718575, loss image 0.000000, grad norm 0.547391
+Info Tue Mar 10 19:39:13 2026 | Optimize latent for step 45, timestep 100
+Info Tue Mar 10 19:39:17 2026 | ep 0 | loss 28.728836, loss norm 6.022353, loss latent 2.125000, loss semantic 20.581484, loss image 0.000000, grad norm 1.021562
+Info Tue Mar 10 19:39:21 2026 | ep 1 | loss 25.206656, loss norm 2.559474, loss latent 2.107422, loss semantic 20.539761, loss image 0.000000, grad norm 1.021733
+Info Tue Mar 10 19:39:25 2026 | ep 2 | loss 22.901125, loss norm 0.000000, loss latent 2.128906, loss semantic 20.772219, loss image 0.000000, grad norm 1.165856
+Info Tue Mar 10 19:39:30 2026 | ep 3 | loss 22.609467, loss norm 0.000000, loss latent 2.105469, loss semantic 20.503998, loss image 0.000000, grad norm 0.180235
+Info Tue Mar 10 19:39:35 2026 | ep 4 | loss 22.786226, loss norm 0.000000, loss latent 2.109375, loss semantic 20.676851, loss image 0.000000, grad norm 0.717714
+Info Tue Mar 10 19:39:35 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.04, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.09, 0.00, 0.00, 0.00, 0.00
+Info Tue Mar 10 19:39:35 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Tue Mar 10 19:39:42 2026 | Startup timestep 699
+Info Tue Mar 10 19:39:42 2026 | Optimize latent for step 25, timestep 500
+Info Tue Mar 10 19:39:46 2026 | ep 0 | loss 26.861862, loss norm 6.036483, loss latent 0.243896, loss semantic 20.581484, loss image 0.000000, grad norm 1.045470
+Info Tue Mar 10 19:39:50 2026 | ep 1 | loss 23.384350, loss norm 2.578721, loss latent 0.265869, loss semantic 20.539761, loss image 0.000000, grad norm 1.048130
+Info Tue Mar 10 19:39:53 2026 | ep 2 | loss 20.993860, loss norm 0.000000, loss latent 0.245483, loss semantic 20.748377, loss image 0.000000, grad norm 0.627931
+Info Tue Mar 10 19:39:57 2026 | ep 3 | loss 20.754932, loss norm 0.000000, loss latent 0.239014, loss semantic 20.515919, loss image 0.000000, grad norm 0.238658
+Info Tue Mar 10 19:40:01 2026 | ep 4 | loss 20.935944, loss norm 0.000000, loss latent 0.241211, loss semantic 20.694733, loss image 0.000000, grad norm 0.568209
+Info Tue Mar 10 19:40:01 2026 | Optimize latent for step 45, timestep 100
+Info Tue Mar 10 19:40:05 2026 | ep 0 | loss 28.317543, loss norm 6.038896, loss latent 1.703125, loss semantic 20.575523, loss image 0.000000, grad norm 1.019605
+Info Tue Mar 10 19:40:09 2026 | ep 1 | loss 24.803219, loss norm 2.574006, loss latent 1.689453, loss semantic 20.539761, loss image 0.000000, grad norm 1.020112
+Info Tue Mar 10 19:40:13 2026 | ep 2 | loss 22.443016, loss norm 0.000000, loss latent 1.676758, loss semantic 20.766258, loss image 0.000000, grad norm 0.609966
+Info Tue Mar 10 19:40:17 2026 | ep 3 | loss 22.182911, loss norm 0.000000, loss latent 1.666992, loss semantic 20.515919, loss image 0.000000, grad norm 0.150925
+Info Tue Mar 10 19:40:21 2026 | ep 4 | loss 22.370817, loss norm 0.000000, loss latent 1.658203, loss semantic 20.712614, loss image 0.000000, grad norm 0.543056
+Info Tue Mar 10 19:40:21 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 16.98, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.03, 0.00, 0.00, 0.00, 0.00
+Info Tue Mar 10 19:40:21 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Tue Mar 10 19:40:28 2026 | Startup timestep 699
+Info Tue Mar 10 19:40:28 2026 | Optimize latent for step 25, timestep 500
+Info Tue Mar 10 19:40:31 2026 | ep 0 | loss 27.168089, loss norm 6.038366, loss latent 0.554199, loss semantic 20.575523, loss image 0.000000, grad norm 1.018767
+Info Tue Mar 10 19:40:35 2026 | ep 1 | loss 23.650717, loss norm 2.567987, loss latent 0.542969, loss semantic 20.539761, loss image 0.000000, grad norm 1.018869
+Info Tue Mar 10 19:40:39 2026 | ep 2 | loss 21.302391, loss norm 0.000000, loss latent 0.536133, loss semantic 20.766258, loss image 0.000000, grad norm 0.608396
+Info Tue Mar 10 19:40:44 2026 | ep 3 | loss 21.044239, loss norm 0.000000, loss latent 0.528320, loss semantic 20.515919, loss image 0.000000, grad norm 0.153210
+Info Tue Mar 10 19:40:48 2026 | ep 4 | loss 21.232634, loss norm 0.000000, loss latent 0.520020, loss semantic 20.712614, loss image 0.000000, grad norm 0.543265
+Info Tue Mar 10 19:40:48 2026 | Optimize latent for step 45, timestep 100
+Info Tue Mar 10 19:40:52 2026 | ep 0 | loss 29.018248, loss norm 6.032568, loss latent 2.410156, loss semantic 20.575523, loss image 0.000000, grad norm 1.016369
+Info Tue Mar 10 19:40:56 2026 | ep 1 | loss 25.501984, loss norm 2.557925, loss latent 2.404297, loss semantic 20.539761, loss image 0.000000, grad norm 1.017188
+Info Tue Mar 10 19:41:00 2026 | ep 2 | loss 23.164696, loss norm 0.000000, loss latent 2.398438, loss semantic 20.766258, loss image 0.000000, grad norm 0.607572
+Info Tue Mar 10 19:41:04 2026 | ep 3 | loss 22.910450, loss norm 0.000000, loss latent 2.394531, loss semantic 20.515919, loss image 0.000000, grad norm 0.145727
+Info Tue Mar 10 19:41:08 2026 | ep 4 | loss 23.099333, loss norm 0.000000, loss latent 2.386719, loss semantic 20.712614, loss image 0.000000, grad norm 0.542732
+Info Tue Mar 10 19:41:08 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.03, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.06, 0.00, 0.00, 0.00, 0.00
+Info Tue Mar 10 19:41:09 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Tue Mar 10 19:41:15 2026 | Startup timestep 699
+Info Tue Mar 10 19:41:15 2026 | Optimize latent for step 25, timestep 500
+Info Tue Mar 10 19:41:19 2026 | ep 0 | loss 27.255283, loss norm 6.023023, loss latent 0.656738, loss semantic 20.575523, loss image 0.000000, grad norm 1.018862
+Info Tue Mar 10 19:41:23 2026 | ep 1 | loss 23.739571, loss norm 2.554303, loss latent 0.645508, loss semantic 20.539761, loss image 0.000000, grad norm 1.019160
+Info Tue Mar 10 19:41:27 2026 | ep 2 | loss 21.402000, loss norm 0.000000, loss latent 0.635742, loss semantic 20.766258, loss image 0.000000, grad norm 0.607245
+Info Tue Mar 10 19:41:32 2026 | ep 3 | loss 21.141895, loss norm 0.000000, loss latent 0.625977, loss semantic 20.515919, loss image 0.000000, grad norm 0.152011
+Info Tue Mar 10 19:41:36 2026 | ep 4 | loss 21.323841, loss norm 0.000000, loss latent 0.617188, loss semantic 20.706654, loss image 0.000000, grad norm 0.540566
+Info Tue Mar 10 19:41:36 2026 | Optimize latent for step 45, timestep 100
+Info Tue Mar 10 19:41:40 2026 | ep 0 | loss 29.226467, loss norm 6.020083, loss latent 2.630859, loss semantic 20.575523, loss image 0.000000, grad norm 1.018291
+Info Tue Mar 10 19:41:44 2026 | ep 1 | loss 25.718143, loss norm 2.551330, loss latent 2.621094, loss semantic 20.545721, loss image 0.000000, grad norm 1.019446
+Info Tue Mar 10 19:41:48 2026 | ep 2 | loss 23.383547, loss norm 0.000000, loss latent 2.611328, loss semantic 20.772219, loss image 0.000000, grad norm 0.608150
+Info Tue Mar 10 19:41:52 2026 | ep 3 | loss 23.117481, loss norm 0.000000, loss latent 2.601562, loss semantic 20.515919, loss image 0.000000, grad norm 0.153934
+Info Tue Mar 10 19:41:56 2026 | ep 4 | loss 23.308418, loss norm 0.000000, loss latent 2.589844, loss semantic 20.718575, loss image 0.000000, grad norm 0.545238
+Info Tue Mar 10 19:41:56 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.06, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.05, 0.00, 0.00, 0.00, 0.00

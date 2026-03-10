@@ -46,7 +46,7 @@ def get_bit_acc(decode_text, expected_text='test'):
         print(f"Error calculating bit accuracy: {e}")
         return 0.0
 
-def run_attack(target_folder, output_folder, start_step, k_list, eps, iters, num_images):
+def run_attack(target_folder, output_folder, start_step, k_list, eps, iters, num_images, mask_attack=False, gamma3=1e-3, original_folder=None):
     print(f"Running attack on {target_folder}...")
     k_str = ' '.join(map(str, k_list))
     # Note: run_attack.py takes --k as a list
@@ -66,6 +66,12 @@ def run_attack(target_folder, output_folder, start_step, k_list, eps, iters, num
     command.extend(['--k'] + [str(x) for x in k_list])
     # --eps must match the length of k_list
     command.extend(['--eps'] + [str(eps) for _ in k_list])
+    
+    command.extend(['--gamma3', str(gamma3)])
+    if mask_attack:
+        command.append('--mask_attack')
+    if original_folder is not None:
+        command.extend(['--original_folder', original_folder])
     
     # Set CUDA allocator config to reduce fragmentation between sequential subprocess calls
     import copy
@@ -96,6 +102,38 @@ def run_attack(target_folder, output_folder, start_step, k_list, eps, iters, num
         
     return sorted(glob.glob(os.path.join(output_folder, 'image_attack_*_00.png')))
 
+def run_inpaint_attack(target_folder, original_folder, output_folder, num_images):
+    print(f"Running Inpainting attack on {target_folder}...")
+    command = [
+        sys.executable, 'run_inpaint.py',
+        '--target_folder', target_folder,
+        '--original_folder', original_folder,
+        '--end', str(num_images),
+        '--gpu', '0',
+        '--output_folder', output_folder,
+        '--image_length', '256',
+    ]
+    
+    import copy
+    env = copy.copy(os.environ)
+    env['PYTORCH_CUDA_ALLOC_CONF'] = 'garbage_collection_threshold:0.6,max_split_size_mb:128'
+    
+    print(f"Executing: {' '.join(command)}")
+    process = subprocess.Popen(
+        command, 
+        cwd=os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
+        stdout=subprocess.PIPE, 
+        stderr=subprocess.STDOUT, 
+        text=True, 
+        env=env
+    )
+    
+    for line in process.stdout:
+        print(line, end='', flush=True)
+        
+    process.wait()
+    return sorted(glob.glob(os.path.join(output_folder, 'image_attack_*_00.png')))
+
 def evaluate_pipeline():
     base_dir = './test_images'
     original_dir = os.path.join(base_dir, 'original')
@@ -103,33 +141,63 @@ def evaluate_pipeline():
     invisible_dir = os.path.join(base_dir, 'invisible')
     
     results = {
-        'visible': [],
+        'visible_baseline': [],
+        'visible_masked': [],
+        'visible_gamma3': [],
+        'visible_inpaint': [],
         'invisible': []
     }
     
+    original_images = sorted(glob.glob(os.path.join(original_dir, '*.jpg')))
+    
     # 1. Evaluate Visible Watermarks
     print("\n--- Evaluating Visible Watermarks ---")
-    vis_out_dir = './evaluation_outputs/visible'
-    os.makedirs(vis_out_dir, exist_ok=True)
     
-    print("Stage 1/4: Running evasion attack on visible watermarks (this may take a while)...")
-    # Parameters for visible: early start_step, larger k
+    # Run Baseline (for reference)
+    vis_out_dir = './evaluation_outputs/visible_baseline'
+    os.makedirs(vis_out_dir, exist_ok=True)
+    print("Stage 1a: Running EVASION BASELINE on visible watermarks...")
     run_attack(visible_dir, vis_out_dir, start_step=15, k_list=[25, 45], eps=10, iters=5, num_images=10)
     
-    print("Stage 2/4: Calculating PSNR metrics for visible watermarks...")
-    original_images = sorted(glob.glob(os.path.join(original_dir, '*.jpg')))
-    attacked_visible = sorted(glob.glob(os.path.join(vis_out_dir, 'image_attack_*_00.png')))
+    # Run Masked Attack
+    vis_masked_dir = './evaluation_outputs/visible_masked'
+    os.makedirs(vis_masked_dir, exist_ok=True)
+    print("Stage 1b: Running MASKED ATTACK on visible watermarks...")
+    run_attack(visible_dir, vis_masked_dir, start_step=15, k_list=[25, 45], eps=10, iters=5, num_images=10, mask_attack=True, original_folder=original_dir)
+
+    # Run Gamma3 Parameter Attack
+    vis_gamma_dir = './evaluation_outputs/visible_gamma3'
+    os.makedirs(vis_gamma_dir, exist_ok=True)
+    print("Stage 1c: Running IMAGE LOSS ATTACK on visible watermarks...")
+    run_attack(visible_dir, vis_gamma_dir, start_step=15, k_list=[25, 45], eps=10, iters=5, num_images=10, gamma3=1000.0, original_folder=original_dir)
     
-    for i, (orig, attacked) in enumerate(zip(original_images, attacked_visible)):
-        if os.path.exists(attacked):
-            psnr = calculate_psnr(orig, attacked)
-            results['visible'].append({
-                'image_idx': i,
-                'original': orig,
-                'attacked': attacked,
-                'psnr': psnr
-            })
-            
+    # Run Inpainting Attack
+    vis_inpaint_dir = './evaluation_outputs/visible_inpaint'
+    os.makedirs(vis_inpaint_dir, exist_ok=True)
+    print("Stage 1d: Running INPAINTING ATTACK on visible watermarks...")
+    run_inpaint_attack(visible_dir, original_dir, vis_inpaint_dir, num_images=10)
+
+    print("Stage 2: Calculating PSNR metrics for visible watermarks...")
+    
+    dirs_to_evaluate = [
+        ('visible_baseline', vis_out_dir),
+        ('visible_masked', vis_masked_dir),
+        ('visible_gamma3', vis_gamma_dir),
+        ('visible_inpaint', vis_inpaint_dir),
+    ]
+
+    for result_key, out_dir in dirs_to_evaluate:
+        attacked_images = sorted(glob.glob(os.path.join(out_dir, 'image_attack_*_00.png')))
+        for i, (orig, attacked) in enumerate(zip(original_images, attacked_images)):
+            if os.path.exists(attacked):
+                psnr = calculate_psnr(orig, attacked)
+                results[result_key].append({
+                    'image_idx': i,
+                    'original': orig,
+                    'attacked': attacked,
+                    'psnr': psnr
+                })
+                
     # 2. Evaluate Invisible Watermarks
     print("\n--- Evaluating Invisible Watermarks ---")
     invis_out_dir = './evaluation_outputs/invisible'
