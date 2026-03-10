@@ -4,6 +4,7 @@ import cv2
 import argparse
 from imwatermark import WatermarkEncoder, WatermarkDecoder
 from pathlib import Path
+import sys
 
 def generate_watermark(bits=32):
     """Generates a random 32-bit watermark."""

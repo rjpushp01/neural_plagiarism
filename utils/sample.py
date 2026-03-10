@@ -8,6 +8,9 @@ import torch
 import imageio
 import torch.optim 
 
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from inverse_stable_diffusion import InversableStableDiffusionPipeline
 from diffusers import DPMSolverMultistepScheduler, StableDiffusionPipeline 
 import open_clip
@@ -24,6 +27,7 @@ from log import *
 
 from pycocotools.coco import COCO
 import requests
+import numpy as np
 
 from watermarking_wrappers.stable_signature_wrapper import StableSignatureWrapper
 
@@ -65,13 +69,13 @@ def main(args):
     sd2_decoder_weights = "./models/sd2_decoder.pth"
     wrapper = StableSignatureWrapper(ldm_config, ldm_ckpt, sd2_decoder_weights, device)
 
-    # scheduler = DPMSolverMultistepScheduler.from_pretrained(args.model_id, subfolder='scheduler')
-    # pipe = InversableStableDiffusionPipeline.from_pretrained(
-    #     args.model_id,
-    #     scheduler=scheduler,
-    #     torch_dtype=torch.float32,
-    #     )
-    # pipe = pipe.to(device)
+    scheduler = DPMSolverMultistepScheduler.from_pretrained(args.model_id, subfolder='scheduler')
+    pipe = InversableStableDiffusionPipeline.from_pretrained(
+        args.model_id,
+        scheduler=scheduler,
+        torch_dtype=torch.float32,
+        )
+    pipe = pipe.to(device)
     
 
 
@@ -87,9 +91,9 @@ def main(args):
     else:
         dataset, prompt_key = get_dataset(args)
 
-    # tester_prompt = ''
-    # text_embeddings = pipe.get_text_embedding(tester_prompt)
-    # gt_patch = get_watermarking_pattern(pipe, args, device)
+    tester_prompt = ''
+    text_embeddings = pipe.get_text_embedding(tester_prompt)
+    gt_patch = get_watermarking_pattern(pipe, args, device)
 
     results = []
     clip_scores = []

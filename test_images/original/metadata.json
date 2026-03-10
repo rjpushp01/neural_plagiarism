@@ -1,0 +1,332 @@
+{
+    "coco_000000391895.jpg": {
+        "id": 391895,
+        "url": "http://images.cocodataset.org/train2017/000000391895.jpg",
+        "captions": [
+            "A man with a red helmet on a small moped on a dirt road. ",
+            "Man riding a motor bike on a dirt road on the countryside.",
+            "A man riding on the back of a motorcycle.",
+            "A dirt path with a young person on a motor bike rests to the foreground of a verdant area with a bridge and a background of cloud-wreathed mountains. ",
+            "A man in a red shirt and a red hat is on a motorcycle on a hill side."
+        ]
+    },
+    "coco_000000522418.jpg": {
+        "id": 522418,
+        "url": "http://images.cocodataset.org/train2017/000000522418.jpg",
+        "captions": [
+            "A woman wearing a net on her head cutting a cake. ",
+            "A woman cutting a large white sheet cake.",
+            "A woman wearing a hair net cutting a large sheet cake.",
+            "there is a woman that is cutting a white cake",
+            "A woman marking a cake with the back of a chef's knife. "
+        ]
+    },
+    "coco_000000184613.jpg": {
+        "id": 184613,
+        "url": "http://images.cocodataset.org/train2017/000000184613.jpg",
+        "captions": [
+            "A child holding a flowered umbrella and petting a yak.",
+            "A young man holding an umbrella next to a herd of cattle.",
+            "a young boy barefoot holding an umbrella touching the horn of a cow",
+            "A young boy with an umbrella who is touching the horn of a cow.",
+            "A boy holding an umbrella while standing next to livestock."
+        ]
+    },
+    "coco_000000318219.jpg": {
+        "id": 318219,
+        "url": "http://images.cocodataset.org/train2017/000000318219.jpg",
+        "captions": [
+            "A young boy standing in front of a computer keyboard.",
+            "a little boy wearing headphones and looking at a computer monitor",
+            "He is listening intently to the computer at school.",
+            "A young boy stares up at the computer monitor.",
+            "a young kid with head phones on using a computer "
+        ]
+    },
+    "coco_000000554625.jpg": {
+        "id": 554625,
+        "url": "http://images.cocodataset.org/train2017/000000554625.jpg",
+        "captions": [
+            "a boy wearing headphones using one computer in a long row of computers",
+            "A little boy with earphones on listening to something.",
+            "A group of people sitting at desk using computers.",
+            "Children sitting at computer stations on a long table.",
+            "A small child wearing headphones plays on the computer."
+        ]
+    },
+    "coco_000000574769.jpg": {
+        "id": 574769,
+        "url": "http://images.cocodataset.org/train2017/000000574769.jpg",
+        "captions": [
+            "A woman in a room with a cat.",
+            "A girl smiles as she holds a cat and wears a brightly colored skirt.",
+            "a woman is holding a cat in her kitchen",
+            "A woman is working in a kitchen carrying a soft toy.",
+            "A woman is holding a cat in her kitchen."
+        ]
+    },
+    "coco_000000060623.jpg": {
+        "id": 60623,
+        "url": "http://images.cocodataset.org/train2017/000000060623.jpg",
+        "captions": [
+            "A young girl inhales with the intent of blowing out a candle. ",
+            "A young girl is preparing to blow out her candle.",
+            "A kid is to blow out the single candle in a bowl of birthday goodness. ",
+            "Girl blowing out the candle on an ice-cream ",
+            "A little girl is getting ready to blow out a candle on a small dessert."
+        ]
+    },
+    "coco_000000309022.jpg": {
+        "id": 309022,
+        "url": "http://images.cocodataset.org/train2017/000000309022.jpg",
+        "captions": [
+            "A commercial stainless kitchen with a pot of food cooking. ",
+            "Some food sits in a pot in a kitchen. ",
+            "A kitchen has all stainless steel appliances and counters.",
+            "a kitchen with a sink and many cooking machines and a pot of food",
+            "Food cooks in a pot on a stove in a kitchen."
+        ]
+    },
+    "coco_000000005802.jpg": {
+        "id": 5802,
+        "url": "http://images.cocodataset.org/train2017/000000005802.jpg",
+        "captions": [
+            "Two men wearing aprons working in a commercial-style kitchen.",
+            "Chefs preparing food in a professional metallic style kitchen.",
+            "Two people standing around in a large kitchen.",
+            "A commercial kitchen with two men working to prepare several plates.",
+            "two men in white shirts in a large steel kitchen"
+        ]
+    },
+    "coco_000000222564.jpg": {
+        "id": 222564,
+        "url": "http://images.cocodataset.org/train2017/000000222564.jpg",
+        "captions": [
+            "Two chefs in a restaurant kitchen preparing food. ",
+            "Two cooks are cooking the food someone ordered at this restaurant",
+            "The chef is cooking with pans on the stove next to an oven. ",
+            "Two men that are standing in a kitchen.",
+            "Two cooks are near the stove in a stainless steel kitchen."
+        ]
+    },
+    "coco_000000118113.jpg": {
+        "id": 118113,
+        "url": "http://images.cocodataset.org/train2017/000000118113.jpg",
+        "captions": [
+            "this is a very dark picture of a room with a shelf",
+            "a cluttered room with a table and shelf on the wall.",
+            "A view of a messy room, with shelves on the wall.",
+            "A dark and cluttered storage area with wood walls.",
+            "A dim lit room consisting of many objects put together. "
+        ]
+    },
+    "coco_000000193271.jpg": {
+        "id": 193271,
+        "url": "http://images.cocodataset.org/train2017/000000193271.jpg",
+        "captions": [
+            "A kitchen filled with black appliances and lots of counter top space.",
+            "some brown cabinets a black oven a tea kettle and a microwave",
+            "A small kitchen with glass and wooden cabinets.",
+            "A modern style kitchen filled with may different items.",
+            "A kitchen with wooden cabinets and black appliances."
+        ]
+    },
+    "coco_000000224736.jpg": {
+        "id": 224736,
+        "url": "http://images.cocodataset.org/train2017/000000224736.jpg",
+        "captions": [
+            "A professional kitchen filled with sinks and appliances.",
+            "A kitchen area with toilet and various cleaning appliances.",
+            "A commercial dish washing station with a toilet in it.",
+            "A toilet and mop bucket in a kitchen.",
+            "A cluttered room with a sink, a toilet and in industrial mop bucket."
+        ]
+    },
+    "coco_000000483108.jpg": {
+        "id": 483108,
+        "url": "http://images.cocodataset.org/train2017/000000483108.jpg",
+        "captions": [
+            "A man on a bicycle riding next to a train",
+            "A person is riding a bicycle but there is a train in the background.",
+            "a red and white train and a man riding a bicycle",
+            "a guy that is riding his bike next to a train",
+            "A man riding a bike past a train traveling along tracks."
+        ]
+    },
+    "coco_000000403013.jpg": {
+        "id": 403013,
+        "url": "http://images.cocodataset.org/train2017/000000403013.jpg",
+        "captions": [
+            "A narrow kitchen filled with appliances and cooking utensils.",
+            "A galley kitchen with cabinets and appliances on both sides",
+            "A hallway leading into a white kitchen with appliances.",
+            "Doorway view of a kitchen with a sink, stove, refrigerator and pantry.",
+            "The pantry door of the small kitchen is closed."
+        ]
+    },
+    "coco_000000374628.jpg": {
+        "id": 374628,
+        "url": "http://images.cocodataset.org/train2017/000000374628.jpg",
+        "captions": [
+            "A kitchen with wood floors and lots of furniture.",
+            "A beautiful, open kitchen and dining room area features an island in the center and wood cabinets and large windows.",
+            "A kitchen made of mostly wood with a small desk with a laptop.",
+            "A very spacious room with a kitchen and dining area.",
+            "A full view of an open kitchen and dining area."
+        ]
+    },
+    "coco_000000328757.jpg": {
+        "id": 328757,
+        "url": "http://images.cocodataset.org/train2017/000000328757.jpg",
+        "captions": [
+            "A woman eating vegetables in front of a stove.",
+            "A woman forks vegetables out of a bowl into her mouth. ",
+            "Woman eating an assortment of mixed vegetables in a bowl.",
+            "A young woman standing in a kitchen eats a plate of vegetables.",
+            "A woman eating fresh vegetables from a bowl."
+        ]
+    },
+    "coco_000000384213.jpg": {
+        "id": 384213,
+        "url": "http://images.cocodataset.org/train2017/000000384213.jpg",
+        "captions": [
+            "A kitchen is shown with a variety of items on the counters.",
+            "A kitchen has the windows open and plaid curtains.",
+            "A kitchen with two windows and two metal sinks.",
+            "An older kitchen with cluttered counter tops but empty sink.",
+            "Glasses and bottles are placed near a kitchen sink."
+        ]
+    },
+    "coco_000000293802.jpg": {
+        "id": 293802,
+        "url": "http://images.cocodataset.org/train2017/000000293802.jpg",
+        "captions": [
+            "A boy performing a kickflip on his skateboard on a city street.",
+            "A man is doing a trick on a skateboard",
+            "A guy jumps in the air with his skateboard beneath him.",
+            "Man in all black doing a trick on his skateboard.",
+            "A skateboarder flipping his board on a street."
+        ]
+    },
+    "coco_000000086408.jpg": {
+        "id": 86408,
+        "url": "http://images.cocodataset.org/train2017/000000086408.jpg",
+        "captions": [
+            "A kitchen with a stove, microwave and refrigerator.",
+            "A refrigerator, oven and microwave sitting in a kitchen.",
+            "The kitchenette uses  small space to great efficiency.",
+            "an image of a kitchen setting with black appliances",
+            "A kitchen with cabinets, a stove, microwave and refrigerator."
+        ]
+    },
+    "coco_000000372938.jpg": {
+        "id": 372938,
+        "url": "http://images.cocodataset.org/train2017/000000372938.jpg",
+        "captions": [
+            "A group of people riding on the back of a loaded red pickup truck.",
+            "A truck with a number of people and things in the back",
+            "Men are crowded on the back of a small overloaded pickup truck.",
+            "An old pick up truck over loaded with people and cargo.",
+            "A truck carries a large amount of items and a few people."
+        ]
+    },
+    "coco_000000386164.jpg": {
+        "id": 386164,
+        "url": "http://images.cocodataset.org/train2017/000000386164.jpg",
+        "captions": [
+            "A wooden ball on top of a wooden stick.",
+            "The table is full of wooden spoons and utensils.",
+            "A wood table holding an assortment of wood cooking utensils.",
+            "A selection of wooden kitchen tools on a counter.",
+            "Wooden spoons are lined up on a table"
+        ]
+    },
+    "coco_000000223648.jpg": {
+        "id": 223648,
+        "url": "http://images.cocodataset.org/train2017/000000223648.jpg",
+        "captions": [
+            "Multiple wooden spoons are shown on a table top.",
+            "A table surrounded by chairs and filled with cooking utensils.",
+            "Wooden spoons laid out across a kitchen table.",
+            "Wooden spoons and forks are all over a table.",
+            "A table and chairs with wooden kitchen tools on top."
+        ]
+    },
+    "coco_000000204805.jpg": {
+        "id": 204805,
+        "url": "http://images.cocodataset.org/train2017/000000204805.jpg",
+        "captions": [
+            "A large boat filled with mean on wheels.",
+            "A bunch of people aboard a boat with wheels. ",
+            "A boat is being rolled on a trailer",
+            "A large boat full of men is sitting on a cart ",
+            "A boat full of people is on a trailer with wheels."
+        ]
+    },
+    "coco_000000113588.jpg": {
+        "id": 113588,
+        "url": "http://images.cocodataset.org/train2017/000000113588.jpg",
+        "captions": [
+            "several young students working at a desk with multiple computers",
+            "A young man at his workstation examines the monitor of a lap top, with one hand on the keyboard and the other on the mouse.",
+            "A man is working on a laptop next to other computers.",
+            "People in a large room, use multiple computers.",
+            "A young professional is working at his laptop while his coworker is reading material."
+        ]
+    },
+    "coco_000000384553.jpg": {
+        "id": 384553,
+        "url": "http://images.cocodataset.org/train2017/000000384553.jpg",
+        "captions": [
+            "A man riding an elephant into some water of a creek.",
+            "man riding an elephant into water surrounded by forest",
+            "A man riding an elephant in a river.",
+            "A man in a brown shirt rides an elephant into the water.",
+            "A man rides an elephant into a river."
+        ]
+    },
+    "coco_000000337264.jpg": {
+        "id": 337264,
+        "url": "http://images.cocodataset.org/train2017/000000337264.jpg",
+        "captions": [
+            "a couple of women  are in a kitchen",
+            "Two people standing in the kitchen of a home.",
+            "A group of people who are around a kitchen counter.",
+            "A group of people prepare dinner in the kitchen.",
+            "two women in a kitchen bottles and lights"
+        ]
+    },
+    "coco_000000368402.jpg": {
+        "id": 368402,
+        "url": "http://images.cocodataset.org/train2017/000000368402.jpg",
+        "captions": [
+            "The woman in the kitchen is holding a huge pan.",
+            "A chef carrying a large pan inside of a kitchen.",
+            "A woman is holding a large pan in a kitchen. ",
+            "A woman cooking in a kitchen with granite counters.",
+            "A woman cooking in her kitchen with a black pan."
+        ]
+    },
+    "coco_000000012448.jpg": {
+        "id": 12448,
+        "url": "http://images.cocodataset.org/train2017/000000012448.jpg",
+        "captions": [
+            "A baby is laying down with a teddy bear.",
+            "A baby laying in a crib with a stuffed teddy bear.",
+            "A baby wearing gloves, lying next to a teddy bear",
+            "A baby stares to the left while taking a picture with a teddy bear lays beside it .",
+            "A baby lies on blue and green bedding next to a teddy bear."
+        ]
+    },
+    "coco_000000079841.jpg": {
+        "id": 79841,
+        "url": "http://images.cocodataset.org/train2017/000000079841.jpg",
+        "captions": [
+            "Two bikers, one in front of a building, the other in the city.",
+            "Two shots of men riding bicycles down city streets.",
+            "A man riding a bike in front of a tall building.",
+            "There are two different people riding bikes down the street.",
+            "Two photos of a person riding a bicycle on the side of the road."
+        ]
+    }
+}

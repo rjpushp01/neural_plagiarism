@@ -1,0 +1,146 @@
+{
+    "visible": [
+        {
+            "image_idx": 0,
+            "original": "./test_images/original/coco_000000005802.jpg",
+            "attacked": "./evaluation_outputs/visible/image_attack_0000_00.png",
+            "psnr": 14.293072060208338
+        },
+        {
+            "image_idx": 1,
+            "original": "./test_images/original/coco_000000012448.jpg",
+            "attacked": "./evaluation_outputs/visible/image_attack_0001_00.png",
+            "psnr": 14.634116138812377
+        },
+        {
+            "image_idx": 2,
+            "original": "./test_images/original/coco_000000060623.jpg",
+            "attacked": "./evaluation_outputs/visible/image_attack_0002_00.png",
+            "psnr": 18.2868744742377
+        },
+        {
+            "image_idx": 3,
+            "original": "./test_images/original/coco_000000079841.jpg",
+            "attacked": "./evaluation_outputs/visible/image_attack_0003_00.png",
+            "psnr": 15.394660887953822
+        },
+        {
+            "image_idx": 4,
+            "original": "./test_images/original/coco_000000086408.jpg",
+            "attacked": "./evaluation_outputs/visible/image_attack_0004_00.png",
+            "psnr": 21.776777165046237
+        },
+        {
+            "image_idx": 5,
+            "original": "./test_images/original/coco_000000113588.jpg",
+            "attacked": "./evaluation_outputs/visible/image_attack_0005_00.png",
+            "psnr": 17.946267141354923
+        },
+        {
+            "image_idx": 6,
+            "original": "./test_images/original/coco_000000118113.jpg",
+            "attacked": "./evaluation_outputs/visible/image_attack_0006_00.png",
+            "psnr": 23.538978252667235
+        },
+        {
+            "image_idx": 7,
+            "original": "./test_images/original/coco_000000184613.jpg",
+            "attacked": "./evaluation_outputs/visible/image_attack_0007_00.png",
+            "psnr": 16.555290956877382
+        },
+        {
+            "image_idx": 8,
+            "original": "./test_images/original/coco_000000193271.jpg",
+            "attacked": "./evaluation_outputs/visible/image_attack_0008_00.png",
+            "psnr": 16.404177975818005
+        },
+        {
+            "image_idx": 9,
+            "original": "./test_images/original/coco_000000204805.jpg",
+            "attacked": "./evaluation_outputs/visible/image_attack_0009_00.png",
+            "psnr": 15.612541055205757
+        }
+    ],
+    "invisible": [
+        {
+            "image_idx": 0,
+            "original": "./test_images/original/coco_000000005802.jpg",
+            "attacked": "./evaluation_outputs/invisible/image_attack_0000_00.png",
+            "psnr": 23.09146574105491,
+            "bit_acc_before": 1.0,
+            "bit_acc_after": 0.4375
+        },
+        {
+            "image_idx": 1,
+            "original": "./test_images/original/coco_000000012448.jpg",
+            "attacked": "./evaluation_outputs/invisible/image_attack_0001_00.png",
+            "psnr": 24.419100365987767,
+            "bit_acc_before": 0.96875,
+            "bit_acc_after": 0.46875
+        },
+        {
+            "image_idx": 2,
+            "original": "./test_images/original/coco_000000060623.jpg",
+            "attacked": "./evaluation_outputs/invisible/image_attack_0002_00.png",
+            "psnr": 26.001438404673788,
+            "bit_acc_before": 0.90625,
+            "bit_acc_after": 0.34375
+        },
+        {
+            "image_idx": 3,
+            "original": "./test_images/original/coco_000000079841.jpg",
+            "attacked": "./evaluation_outputs/invisible/image_attack_0003_00.png",
+            "psnr": 19.73839576839493,
+            "bit_acc_before": 1.0,
+            "bit_acc_after": 0.46875
+        },
+        {
+            "image_idx": 4,
+            "original": "./test_images/original/coco_000000086408.jpg",
+            "attacked": "./evaluation_outputs/invisible/image_attack_0004_00.png",
+            "psnr": 24.802658670391082,
+            "bit_acc_before": 1.0,
+            "bit_acc_after": 0.46875
+        },
+        {
+            "image_idx": 5,
+            "original": "./test_images/original/coco_000000113588.jpg",
+            "attacked": "./evaluation_outputs/invisible/image_attack_0005_00.png",
+            "psnr": 24.257612646725125,
+            "bit_acc_before": 0.90625,
+            "bit_acc_after": 0.5
+        },
+        {
+            "image_idx": 6,
+            "original": "./test_images/original/coco_000000118113.jpg",
+            "attacked": "./evaluation_outputs/invisible/image_attack_0006_00.png",
+            "psnr": 33.1531609468589,
+            "bit_acc_before": 0.96875,
+            "bit_acc_after": 0.5
+        },
+        {
+            "image_idx": 7,
+            "original": "./test_images/original/coco_000000184613.jpg",
+            "attacked": "./evaluation_outputs/invisible/image_attack_0007_00.png",
+            "psnr": 18.59411646359306,
+            "bit_acc_before": 1.0,
+            "bit_acc_after": 0.4375
+        },
+        {
+            "image_idx": 8,
+            "original": "./test_images/original/coco_000000193271.jpg",
+            "attacked": "./evaluation_outputs/invisible/image_attack_0008_00.png",
+            "psnr": 23.885093580543504,
+            "bit_acc_before": 1.0,
+            "bit_acc_after": 0.53125
+        },
+        {
+            "image_idx": 9,
+            "original": "./test_images/original/coco_000000204805.jpg",
+            "attacked": "./evaluation_outputs/invisible/image_attack_0009_00.png",
+            "psnr": 19.37545569760642,
+            "bit_acc_before": 0.46875,
+            "bit_acc_after": 0.46875
+        }
+    ]
+}

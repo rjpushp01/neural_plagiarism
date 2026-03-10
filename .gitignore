@@ -9,3 +9,6 @@ __pycache__/
 .DS_Store
 .ipynb_checkpoints/
 
+# Large Datasets
+coco_annotations/
+

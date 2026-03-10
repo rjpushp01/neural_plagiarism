@@ -3,8 +3,9 @@ import random
 import torch
 
 import matplotlib.pyplot as plt
-from PIL import Image
+from PIL import Image, ImageFilter
 from torchvision import transforms
+from optim_utils import set_random_seed
 
 import numpy as np
 

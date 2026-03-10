@@ -100,12 +100,11 @@ class AttackStableDiffusionPipeline(InversableStableDiffusionPipeline):
         return z
 
     def decode_image_for_gradient_float(self, latents: torch.FloatTensor, **kwargs):
-        scaled_latents = 1 / 0.18215 * latents
-        vae = copy.deepcopy(self.vae).float()
+        scaled_latents = (1 / 0.18215 * latents).to(dtype=self.vae.dtype)
         image = [
-            vae.decode(scaled_latents[i : i + 1]).sample for i in range(len(latents))
+            self.vae.decode(scaled_latents[i : i + 1]).sample for i in range(len(latents))
         ]
-        image = torch.cat(image, dim=0)
+        image = torch.cat(image, dim=0).float()
         return image
 
     def _add_shim(
@@ -119,21 +118,21 @@ class AttackStableDiffusionPipeline(InversableStableDiffusionPipeline):
         Apply shim perturbations to the given latents or text embeddings.
         """
         if shim_type == "latents":
-            return latents + shim, text_embeddings
+            return latents + shim.to(latents.dtype), text_embeddings
         elif shim_type == "text_embeddings":
-            return latents, text_embeddings + shim
+            return latents, text_embeddings + shim.to(text_embeddings.dtype)
         elif shim_type == "latents_fft":
             latents_fft = torch.fft.fft2(latents)
             noisy_latents_fft = latents_fft + shim
             latents = torch.fft.ifft2(noisy_latents_fft).real
             return latents, text_embeddings
         elif shim_type == "both":
-            return latents+shim[0], text_embeddings+ shim[1]
+            return latents+shim[0].to(latents.dtype), text_embeddings+ shim[1].to(text_embeddings.dtype)
         elif shim_type == "both_fft":
             latents_fft = torch.fft.fftshift(torch.fft.fft2(latents), dim=(-1, -2))
-            noisy_latents_fft = latents_fft + shim[0]
+            noisy_latents_fft = latents_fft + shim[0].to(latents_fft.dtype)
             latents = torch.fft.ifft2(torch.fft.ifftshift(noisy_latents_fft, dim=(-1, -2))).real
-            return latents, text_embeddings+ shim[1]
+            return latents, text_embeddings+ shim[1].to(text_embeddings.dtype)
         else:
             raise Exception("Unsupported shim type.")
 
@@ -141,8 +140,16 @@ class AttackStableDiffusionPipeline(InversableStableDiffusionPipeline):
         latent_model_input = torch.cat([latents] * 2) if do_classifier_free_guidance else latents
         latent_model_input = self.scheduler.scale_model_input(latent_model_input, t)
 
-        # predict the noise residual
-        noise_pred = self.unet(latent_model_input, t, encoder_hidden_states=text_embeddings).sample
+        if torch.is_grad_enabled():
+            # Use gradient checkpointing to recompute UNet activations on-the-fly during backward
+            # instead of storing them. This reduces peak VRAM from ~3GB to ~500MB.
+            def unet_forward(lmi, te):
+                return self.unet(lmi, t, encoder_hidden_states=te).sample
+            noise_pred = torch.utils.checkpoint.checkpoint(
+                unet_forward, latent_model_input, text_embeddings, use_reentrant=False
+            )
+        else:
+            noise_pred = self.unet(latent_model_input, t, encoder_hidden_states=text_embeddings).sample
 
         # perform guidance
         if do_classifier_free_guidance:
@@ -311,14 +318,16 @@ class AttackStableDiffusionPipeline(InversableStableDiffusionPipeline):
                     callback(i, t, latents)
 
         # 8. Post-processing
-        image = self.decode_latents(latents)
-
-        # 9. Run safety checker
-        image, has_nsfw_concept = self.run_safety_checker(image, device, text_embeddings.dtype)
-
-        # 10. Convert to PIL
-        if output_type == "pil":
-            image = self.numpy_to_pil(image)
+        if output_type == "latent":
+            image = latents
+            has_nsfw_concept = None
+        else:
+            image = self.decode_latents(latents)
+            # 9. Run safety checker
+            image, has_nsfw_concept = self.run_safety_checker(image, device, text_embeddings.dtype)
+            # 10. Convert to PIL
+            if output_type == "pil":
+                image = self.numpy_to_pil(image)
 
         if not return_dict:
             return (image, has_nsfw_concept)
@@ -419,6 +428,8 @@ class AttackStableDiffusionPipeline(InversableStableDiffusionPipeline):
                 # snapshot the inter latents at timestep grad_step
                 inter_latents = latents.clone() if enable_grad else inter_latents
                 
+                # _reverse_next uses gradient checkpointing internally when grad is enabled,
+                # so only ~500MB peak activation memory (not 3GB) for the backward pass
                 latents = self._reverse_next(latents, t, text_embeddings, do_classifier_free_guidance, guidance_scale, shortcut, extra_step_kwargs)
 
                 # snapshot the inter_latents_next latents at timestep grad_step
@@ -435,14 +446,16 @@ class AttackStableDiffusionPipeline(InversableStableDiffusionPipeline):
                     callback(i, t, latents)
 
         # 8. Post-processing
-        image = self.decode_latents_with_grad(latents) if enable_image_grad else self.decode_latents(latents)
-
-        # 9. Run safety checker
-        image, has_nsfw_concept = self.run_safety_checker(image, device, text_embeddings.dtype)
-
-        # 10. Convert to PIL
-        if output_type == "pil":
-            image = self.numpy_to_pil(image)
+        if output_type == "latent":
+            image = latents
+            has_nsfw_concept = None
+        else:
+            image = self.decode_latents_with_grad(latents) if enable_image_grad else self.decode_latents(latents)
+            # 9. Run safety checker
+            image, has_nsfw_concept = self.run_safety_checker(image, device, text_embeddings.dtype)
+            # 10. Convert to PIL
+            if output_type == "pil":
+                image = self.numpy_to_pil(image)
 
         if not return_dict:
             return (image, has_nsfw_concept)

@@ -5,7 +5,6 @@ import os
 from imwatermark import WatermarkEncoder, WatermarkDecoder
 from torchvision import transforms
 import subprocess
-from typing import Callable, List, Optional, Union, Any, Dict, Tuple
 
 class Watermarker:
     def encode(self, img_path, output_path, prompt=''):
@@ -32,6 +31,18 @@ class InvisibleWatermarker(Watermarker):
 
     def decode(self, img_path):
         wm_img = cv2.imread(img_path)
+        if wm_img is None:
+            raise FileNotFoundError(f"Image not found at path: {img_path}")
+            
+        # imwatermark requires image to be strictly larger than 256x256. 
+        # Since the attack script outputs 256x256 images, we must rescale.
+        h, w = wm_img.shape[:2]
+        if h <= 256 or w <= 256:
+            wm_img = cv2.resize(wm_img, (512, 512), interpolation=cv2.INTER_CUBIC)
+            
+        import numpy as np
+        # dwtDctSvd in imwatermark requires float32/float64 input for cv2.dct
+        wm_img = wm_img.astype(np.float32)
         wm_text_decode = self.decoder.decode(wm_img, self.method)
         return wm_text_decode
 

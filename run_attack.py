@@ -17,9 +17,11 @@ from pycocotools.coco import COCO
 from diffusers import DPMSolverMultistepScheduler, DDIMScheduler, DPMSolverMultistepScheduler
 from diffusers.models import AutoencoderKL
 
+import numpy as np
 import PIL.Image
 from PIL import Image
 import matplotlib.pyplot as plt
+from torchvision import transforms
 
 from attack_stable_diffusion import AttackStableDiffusionPipeline
 from inverse_stable_diffusion import InversableStableDiffusionPipeline
@@ -122,16 +124,16 @@ device = "cuda:{}".format(args.gpu) if torch.cuda.is_available() else "cpu"
 # Load the diffusion model.
 scheduler = DPMSolverMultistepScheduler.from_pretrained(args.model_id, subfolder="scheduler")
 # scheduler = DDIMScheduler.from_pretrained(args.model_id, subfolder="scheduler")
-vae = AutoencoderKL.from_pretrained("stabilityai/sd-vae-ft-mse")
+vae = AutoencoderKL.from_pretrained("stabilityai/sd-vae-ft-mse", torch_dtype=torch.float16)
 pipe = AttackStableDiffusionPipeline.from_pretrained(
     args.model_id,
     scheduler=scheduler,
     vae=vae,
-    torch_dtype=torch.float32,
+    torch_dtype=torch.float16,
 ).to(device)
 
 set_random_seed(args.gen_seed)
-
+pipe.enable_attention_slicing(1)
 # Generate the watermark and save it to a file for later detection.
 # if args.watermark_text:
 #     log.info("Watermark text: {}".format(args.watermark_text))
@@ -178,6 +180,7 @@ for i, ori_img_path in enumerate(ori_img_paths):
     # original_accuracies.append(wm_bit_acc_original)
     
     # --- Attack Pipeline Setup ---
+    torch.cuda.empty_cache()  # clear cached allocations from previous image
     empty_prompt = ""
     empty_embedding = pipe.encode_prompt(
         empty_prompt,
@@ -187,7 +190,7 @@ for i, ori_img_path in enumerate(ori_img_paths):
     ).detach()
 
     target_img_pil = Image.open(ori_img_path)
-    target_img = transform_img(target_img_pil).unsqueeze(0).to(empty_embedding.dtype).to(device)
+    target_img = transform_img(target_img_pil, target_size=args.image_length).unsqueeze(0).to(empty_embedding.dtype).to(device).detach()
     
     # Set timesteps for reverse diffusion.
     pipe.scheduler.set_timesteps(args.attack_num_inference_steps, device=device)
@@ -201,16 +204,16 @@ for i, ori_img_path in enumerate(ori_img_paths):
         # Decode latents using inversion if specified.
         if args.decode_inv:
             log.info("Inversing target latents.")
-            target_latents = pipe.decoder_inv(target_img)
+            target_latents = pipe.decoder_inv(target_img).detach()
         else:
-            target_latents = pipe.get_image_latents(target_img, sample=False)
+            target_latents = pipe.get_image_latents(target_img, sample=False).detach()
         
         # --- Forward Diffusion: Collect Anchor Latents ---
         anchor_latents = []
         def collect_latents(step, timestep, latents):
             anchor_latents.append(latents.clone().detach())
 
-        text_embeddings = pipe.get_text_embedding(empty_prompt)
+        text_embeddings = pipe.get_text_embedding(empty_prompt).detach()
         _ = pipe.forward_diffusion(
             latents=target_latents,
             text_embeddings=text_embeddings,
@@ -223,19 +226,21 @@ for i, ori_img_path in enumerate(ori_img_paths):
         # Reverse the collected anchor latents.
         anchor_latents = list(reversed(anchor_latents))
 
-        outputs_reversed = pipe(
-            empty_prompt,
-            num_images_per_prompt=1,
-            guidance_scale=args.guidance_scale,
-            num_inference_steps=args.attack_num_inference_steps,
-            height=args.image_length,
-            width=args.image_length,
-            output_type="latent",
-            head_start_step=args.start_step,
-            head_start_latents=anchor_latents[args.start_step]
-        )
-        reversed_image = outputs_reversed.images.detach()
-        reversed_image_pil = tensor_to_pil(reversed_image)[0]
+        with torch.no_grad():
+            outputs_reversed = pipe(
+                empty_prompt,
+                num_images_per_prompt=1,
+                guidance_scale=args.guidance_scale,
+                num_inference_steps=args.attack_num_inference_steps,
+                height=args.image_length,
+                width=args.image_length,
+                output_type="latent",
+                head_start_step=args.start_step,
+                head_start_latents=anchor_latents[args.start_step]
+            )
+            reversed_latents = outputs_reversed.images.detach()
+            decoded_reversed_image = pipe.decode_latents(reversed_latents)
+        reversed_image_pil = tensor_to_pil(decoded_reversed_image)[0]
         reversed_image_path = os.path.join(reversed_folder, f"image_{i:04d}.png")
         reversed_image_pil.save(reversed_image_path)
         
@@ -256,7 +261,7 @@ for i, ori_img_path in enumerate(ori_img_paths):
         csim_func = nn.CosineSimilarity(dim=1, eps=1e-6)
         
         # Initialize shims (one per diffusion step).
-        zts = [torch.zeros_like(empty_embedding).requires_grad_(False) for _ in range(args.attack_num_inference_steps)]
+        zts = [torch.zeros_like(empty_embedding, dtype=torch.float32).requires_grad_(False) for _ in range(args.attack_num_inference_steps)]
         
         log.info("Startup timestep {}".format(timesteps[args.start_step].item()))
         # timestep = torch.tensor([140], dtype=torch.long, device=device)
@@ -275,6 +280,8 @@ for i, ori_img_path in enumerate(ori_img_paths):
             
             log.info("Optimize latent for step {}, timestep {}".format(k, timesteps[k]))
             for ep in range(args.iters):
+                import gc; gc.collect(); torch.cuda.empty_cache()  # Force PyTorch to release cached but unallocated VRAM BEFORE backward pass
+                
                 optimizer.zero_grad()
                 outputs_attack = pipe.generate_with_shims(
                     empty_prompt,
@@ -291,20 +298,22 @@ for i, ori_img_path in enumerate(ori_img_paths):
                     head_start_latents=head_start_latents,
                     shortcut_step=args.shortcut_step
                 )
-                latents_xt = outputs_attack.inter_latents
                 latents_xtm1 = outputs_attack.inter_latents_next
                 
                 mu_k = (alphas_cumprod[k]) ** 0.5
                 std_k = (1 - alphas_cumprod[k]) ** 0.5
 
-                # Compute losses.
+                # Compute losses — all three are active:
+                # loss_norm: penalizes shim norm, depends directly on zts[k]
+                # loss_align: aligns attacked latents to anchor, backprops through checkpointed UNet -> zts[k]
+                # loss_semantic: preserves text semantics, depends directly on zts[k]
                 loss_norm = torch.max(torch.zeros(1).to(device), torch.tensor(args.eps[idx]).to(device) - zts[k].norm())
-                # loss_align = args.gamma1 * align_func(latents_xtm1, anchor_latents[k-1], mu_k, std_k).mean()
                 loss_align = args.gamma1 * dist_func(latents_xtm1, anchor_latents[k-1]).mean()
                 loss_semantic = args.gamma2 * (1 - csim_func((empty_embedding + zts[k]).mean(dim=1), empty_embedding.mean(dim=1)).mean())
-                loss_image = args.gamma3 * torch.dist(outputs_attack.images[0], target_img)
+                loss_image = torch.tensor(0.0, device=device)
 
-                loss = loss_norm + loss_align + loss_semantic# - loss_image
+                loss = loss_norm + loss_align + loss_semantic
+                
                 loss.backward()
                 log.info("ep {} | loss {:.6f}, loss norm {:.6f}, loss latent {:.6f}, loss semantic {:.6f}, loss image {:.6f}, grad norm {:.6f}".format(
                     ep, loss.item(), loss_norm.item(), loss_align.item(), loss_semantic.item(), loss_image.item(), zts[k].grad.norm()))
@@ -312,12 +321,21 @@ for i, ori_img_path in enumerate(ori_img_paths):
                 torch.nn.utils.clip_grad_norm_([zts[k]], max_norm=1.0)
                 optimizer.step()
                 lr_scheduler.step()
+                
+                if ep == args.iters - 1:
+                    final_attack_images = outputs_attack.images.detach().cpu()
+                
+                # Delete large vars manually to assist GC
+                del outputs_attack, latents_xtm1, loss, loss_align, loss_norm, loss_semantic
+                gc.collect(); torch.cuda.empty_cache()
         
         log.info("Shims norm: " + ", ".join("{:.2f}".format(zt.norm().item()) for zt in zts))
         
         # --- Save and Evaluate the Attacked Image ---
         attack_filename = os.path.join(args.output_folder, f"image_attack_{i:04d}_{j:02d}.png")
-        attack_image_w_pil = tensor_to_pil(outputs_attack.images.detach().cpu())[0]
+        with torch.no_grad():
+            decoded_attack = pipe.decode_latents(final_attack_images.to(device))
+        attack_image_w_pil = tensor_to_pil(decoded_attack)[0]
         attack_image_w_pil.save(attack_filename)
         
         # decoded_wm_attack = wmarker.decode(attack_filename)
