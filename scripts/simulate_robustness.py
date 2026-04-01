@@ -1,6 +1,8 @@
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
+import os
+import datetime
 from utils.ecc_watermark import ECCWatermarker
 
 def calculate_bit_accuracy(original_bits, extracted_bits):
@@ -8,7 +10,20 @@ def calculate_bit_accuracy(original_bits, extracted_bits):
     return (original_bits[:min_len] == extracted_bits[:min_len]).mean()
 
 def run_simulation():
-    print("=== Robust Watermarking Simulation (Paper vs. Baseline) ===")
+    # Setup Output Directory
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    out_dir = f"evaluation_outputs/ecc_robustness/run_{timestamp}"
+    os.makedirs(out_dir, exist_ok=True)
+    
+    log_file_path = os.path.join(out_dir, "robustness_results.log")
+    
+    def log_print(*args, **kwargs):
+        line = " ".join(map(str, args))
+        print(line, **kwargs)
+        with open(log_file_path, "a") as f:
+            f.write(line + "\n")
+
+    log_print("=== Robust Watermarking Simulation (Paper vs. Baseline) ===")
     
     # Configuration
     wm_text = "SECRET_KEY_2026"
@@ -40,9 +55,9 @@ def run_simulation():
     results_ecc = []
     results_naive = []
     
-    print(f"\nTesting Robustness against Gaussian Manifold Noise:")
-    print(f"{'Noise Std':<10} | {'Naive Acc':<12} | {'ECC Acc':<12} | {'Recovery'}")
-    print("-" * 55)
+    log_print(f"\nTesting Robustness against Gaussian Manifold Noise:")
+    log_print(f"{'Noise Std':<10} | {'Naive Acc':<12} | {'ECC Acc':<12} | {'Recovery'}")
+    log_print("-" * 55)
 
     for sigma in noise_levels:
         # Simulate Noise Attack
@@ -73,7 +88,7 @@ def run_simulation():
         results_ecc.append(ecc_acc)
         results_naive.append(naive_acc)
         
-        print(f"{sigma:<10.1f} | {naive_acc*100:<11.1f}% | {ecc_acc*100:<11.1f}% | {recovery} ({flips} flips corrected)")
+        log_print(f"{sigma:<10.1f} | {naive_acc*100:<11.1f}% | {ecc_acc*100:<11.1f}% | {recovery} ({flips} flips corrected)")
 
     # --- PLOTTING ---
     plt.figure(figsize=(10, 6))
@@ -85,12 +100,14 @@ def run_simulation():
     plt.ylabel("Raw Bit Accuracy")
     plt.legend()
     plt.grid(True, alpha=0.3)
-    plt.savefig("robustness_benchmark.png")
-    print(f"\nSimulation complete. Benchmark plot saved to 'robustness_benchmark.png'")
+    
+    plot_path = os.path.join(out_dir, "robustness_benchmark.png")
+    plt.savefig(plot_path)
+    log_print(f"\nSimulation complete. Benchmark plot saved to '{plot_path}'")
     
     if results_ecc[-1] > results_naive[-1]:
-        print("\nCONCLUSION: The ECC-Hardened method (Scenario A) successfully resisted attacks that broke the naive baseline.")
-        print("Even when raw bit accuracy dropped, the BCH+Repetition layer corrected errors to recover 100% of the text.")
+        log_print("\nCONCLUSION: The ECC-Hardened method (Scenario A) successfully resisted attacks that broke the naive baseline.")
+        log_print("Even when raw bit accuracy dropped, the BCH+Repetition layer corrected errors to recover 100% of the text.")
 
 if __name__ == "__main__":
     run_simulation()
