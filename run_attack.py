@@ -136,24 +136,7 @@ pipe = AttackStableDiffusionPipeline.from_pretrained(
 
 set_random_seed(args.gen_seed)
 pipe.enable_attention_slicing(1)
-# Generate the watermark and save it to a file for later detection.
-# if args.watermark_text:
-#     log.info("Watermark text: {}".format(args.watermark_text))
-#     watermark = args.watermark_text.encode('utf-8')
-# else:
-#     watermark = generate_watermark().encode('utf-8')
 
-# watermark_file = Path(args.output_folder) / "watermark.txt"
-# with open(watermark_file, "w") as f:
-#     f.write(watermark.decode('utf-8'))
-
-# Initialize the invisible watermarker.
-# wmarker = InvisibleWatermarker(args.watermark_text, args.watermark_method)
-
-# Lists to hold watermark detection accuracies.
-# original_accuracies = []
-# reversed_accuracies = []
-# attack_accuracies = []
 
 # Get list of original image paths.
 ori_img_paths = glob.glob(os.path.join(args.target_folder, '*.*'))
@@ -166,20 +149,6 @@ for i, ori_img_path in enumerate(ori_img_paths):
     
 
     img_name = os.path.basename(ori_img_path)
-    
-    # --- Original Image: Embed and Decode Watermark ---
-    # wm_img_path = os.path.join(watermarked_folder, img_name)
-    # wmarker.encode(ori_img_path, wm_img_path)
-    
-    # decoded_wm_original = wmarker.decode(wm_img_path)
-    # wm_bit_acc_original, wm_success_original = get_bit_acc_success(
-    #     decoded_wm_original,
-    #     expected_text=args.watermark_text,
-    #     threshold=24/32
-    # )
-    # log.info("Original Image {:04d} - Decoded Watermark: {} | Bit Accuracy: {:.2f}% (Success: {})".format(
-    #     i, decoded_wm_original, wm_bit_acc_original * 100, wm_success_original))
-    # original_accuracies.append(wm_bit_acc_original)
     
     # --- Attack Pipeline Setup ---
     torch.cuda.empty_cache()  # clear cached allocations from previous image
@@ -267,17 +236,6 @@ for i, ori_img_path in enumerate(ori_img_paths):
         reversed_image_path = os.path.join(reversed_folder, f"image_{i:04d}.png")
         reversed_image_pil.save(reversed_image_path)
         
-        # --- Reversed Image: Decode Watermark ---
-        # decoded_wm_reversed = wmarker.decode(reversed_image_path)
-        # wm_bit_acc_reversed, wm_success_reversed = get_bit_acc_success(
-        #     decoded_wm_reversed,
-        #     expected_text=args.watermark_text,
-        #     threshold=24/32
-        # )
-        # log.info("Reversed Image {:04d} - Decoded Watermark: {} | Bit Accuracy: {:.2f}% (Success: {})".format(
-        #     i, decoded_wm_reversed, wm_bit_acc_reversed * 100, wm_success_reversed))
-        # reversed_accuracies.append(wm_bit_acc_reversed)
-        
         # --- Attack: Optimize Latents ---
         dist_func = lambda x, y: torch.norm(x - y, p=2)
         align_func = lambda x, y, mu, std: mu * dist_func(x.mean(dim=[2,3]), y.mean(dim=[2,3])) + std * dist_func(x.std(dim=[2,3]), y.std(dim=[2,3]))
@@ -288,9 +246,6 @@ for i, ori_img_path in enumerate(ori_img_paths):
         zts = [torch.zeros_like(empty_embedding, dtype=torch.float32).requires_grad_(False) for _ in range(args.attack_num_inference_steps)]
         
         log.info("Startup timestep {}".format(timesteps[args.start_step].item()))
-        # timestep = torch.tensor([140], dtype=torch.long, device=device)
-        # noise = torch.randn_like(target_latents)
-        # head_start_latents = pipe.scheduler.add_noise(target_latents, noise, timestep)
         head_start_latents = anchor_latents[args.start_step]
 
         for idx, k in enumerate(args.k):
