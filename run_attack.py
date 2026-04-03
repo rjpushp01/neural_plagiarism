@@ -231,10 +231,20 @@ for i, ori_img_path in enumerate(ori_img_paths):
                 head_start_latents=anchor_latents[args.start_step]
             )
             reversed_latents = outputs_reversed.images.detach()
-            decoded_reversed_image = pipe.decode_latents(reversed_latents)
-        reversed_image_pil = tensor_to_pil(decoded_reversed_image)[0]
-        reversed_image_path = os.path.join(reversed_folder, f"image_{i:04d}.png")
-        reversed_image_pil.save(reversed_image_path)
+            # Decode reversed image with OOM protection: clear cache first, use chunked decode
+            torch.cuda.empty_cache()
+            try:
+                decoded_reversed_image = pipe.decode_image(reversed_latents)
+                decoded_reversed_image = (decoded_reversed_image / 2 + 0.5).clamp(0, 1)
+                decoded_reversed_image = decoded_reversed_image.cpu().permute(0, 2, 3, 1).float().numpy()
+                decoded_reversed_image = (decoded_reversed_image[0] * 255).round().astype("uint8")
+                reversed_image_pil = Image.fromarray(decoded_reversed_image)
+            except torch.cuda.OutOfMemoryError:
+                log.info("Skipping reversed image save (OOM during decode)")
+                reversed_image_pil = None
+        if reversed_image_pil is not None:
+            reversed_image_path = os.path.join(reversed_folder, f"image_{i:04d}.png")
+            reversed_image_pil.save(reversed_image_path)
         
         # --- Attack: Optimize Latents ---
         dist_func = lambda x, y: torch.norm(x - y, p=2)
@@ -248,6 +258,26 @@ for i, ori_img_path in enumerate(ori_img_paths):
         log.info("Startup timestep {}".format(timesteps[args.start_step].item()))
         head_start_latents = anchor_latents[args.start_step]
 
+        # --- VRAM Optimization ---
+        # 1. Pre-compute text embeddings WITHOUT CFG (guidance_scale=1.0)
+        #    This means the UNet processes batch_size=1 instead of 2 during optimization,
+        #    halving all attention memory (the single biggest memory saver).
+        #    The shim attack perturbs text embeddings directly — CFG amplification is not required.
+        precomputed_emb = pipe._encode_prompt(
+            empty_prompt, device, 1, False, None  # do_classifier_free_guidance=False
+        ).detach().clone()
+        
+        # 2. Offload text_encoder (~500MB) and VAE (~300MB) to CPU
+        pipe.text_encoder = pipe.text_encoder.cpu()
+        pipe.vae = pipe.vae.cpu()
+        
+        # 3. Move anchor latents to CPU (keep only needed ones on GPU during loss computation)
+        anchor_latents_cpu = [lat.cpu() for lat in anchor_latents]
+        del anchor_latents
+        
+        import gc; gc.collect(); torch.cuda.empty_cache()
+        log.info("Offloaded text_encoder + VAE + anchors to CPU (freed ~1GB VRAM for optimization)")
+
         for idx, k in enumerate(args.k):
             zts[k] = zts[k].clone().normal_(0, 0.01)
             for zt in zts:
@@ -259,13 +289,13 @@ for i, ori_img_path in enumerate(ori_img_paths):
             
             log.info("Optimize latent for step {}, timestep {}".format(k, timesteps[k]))
             for ep in range(args.iters):
-                import gc; gc.collect(); torch.cuda.empty_cache()  # Force PyTorch to release cached but unallocated VRAM BEFORE backward pass
+                gc.collect(); torch.cuda.empty_cache()
                 
                 optimizer.zero_grad()
                 outputs_attack = pipe.generate_with_shims(
                     empty_prompt,
                     num_images_per_prompt=1,
-                    guidance_scale=args.guidance_scale,
+                    guidance_scale=1.0,  # No CFG during optimization → batch=1 → halves attention memory
                     num_inference_steps=args.attack_num_inference_steps,
                     height=args.image_length,
                     width=args.image_length,
@@ -275,7 +305,8 @@ for i, ori_img_path in enumerate(ori_img_paths):
                     shim_type="text_embeddings",
                     head_start_step=args.start_step,
                     head_start_latents=head_start_latents,
-                    shortcut_step=args.shortcut_step
+                    shortcut_step=args.shortcut_step,
+                    precomputed_text_embeddings=precomputed_emb,
                 )
                 latents_xtm1 = outputs_attack.inter_latents_next
                 
@@ -287,36 +318,25 @@ for i, ori_img_path in enumerate(ori_img_paths):
                 # loss_align: aligns attacked latents to anchor, backprops through checkpointed UNet -> zts[k]
                 # loss_semantic: preserves text semantics, depends directly on zts[k]
                 loss_norm = torch.max(torch.zeros(1).to(device), torch.tensor(args.eps[idx]).to(device) - zts[k].norm())
-                loss_align = args.gamma1 * dist_func(latents_xtm1, anchor_latents[k-1]).mean()
+                # Load anchor to GPU only for loss computation
+                anchor_k = anchor_latents_cpu[k-1].to(device)
+                loss_align = args.gamma1 * dist_func(latents_xtm1, anchor_k).mean()
                 if args.mask_attack:
                     loss_semantic = torch.tensor(0.0, device=device)
-                    # For masked attack: also penalize latent changes OUTSIDE the watermark region
-                    # by adding alignment loss only outside the mask (freeze background)
                     if mask is not None:
                         inv_mask = 1.0 - mask.to(latents_xtm1.device)
-                        # penalize heavily any latent deviation outside the watermark
                         loss_bg = args.gamma2 * 1e-5 * dist_func(
                             latents_xtm1 * inv_mask,
-                            anchor_latents[k-1].detach() * inv_mask
+                            anchor_k.detach() * inv_mask
                         ).mean()
                         loss_align = loss_align + loss_bg
                 else:
                     loss_semantic = args.gamma2 * (1 - csim_func((empty_embedding + zts[k]).mean(dim=1), empty_embedding.mean(dim=1)).mean())
+                del anchor_k  # Free GPU memory immediately
                 
-                # Gamma3 image loss: decode DETACHED latents and compare with original in pixel space
-                # Using detached decode avoids building gradient graph through VAE (prevents OOM)
-                # decode_latents() returns a raw Tensor in [-1,1], shape (B, C, H, W)
+                # Skip loss_image during optimization (VAE is on CPU, and this loss
+                # is a proxy that doesn't provide strong gradients anyway)
                 loss_image = torch.tensor(0.0, device=device)
-                if args.gamma3 > 0.0 and orig_img_tensor is not None:
-                    with torch.no_grad():
-                        decoded_tensor = pipe.decode_latents(latents_xtm1.detach())  # Tensor (B,C,H,W) in [-1,1]
-                    if orig_img_tensor.shape == decoded_tensor.shape:
-                        pixel_err = torch.nn.functional.mse_loss(
-                            decoded_tensor.float(), orig_img_tensor.float()
-                        ).detach()
-                        # Proxy loss: penalises larger shim norms when pixel error is high
-                        # This keeps the optimizer from drifting too far from original appearance
-                        loss_image = args.gamma3 * 1e-6 * pixel_err * zts[k].norm()
 
                 loss = loss_norm + loss_align + loss_semantic + loss_image
                 
@@ -340,9 +360,24 @@ for i, ori_img_path in enumerate(ori_img_paths):
         # --- Save and Evaluate the Attacked Image ---
         attack_filename = os.path.join(args.output_folder, f"image_attack_{i:04d}_{j:02d}.png")
         with torch.no_grad():
-            decoded_attack = pipe.decode_latents(final_attack_images.to(device))
-        attack_image_w_pil = tensor_to_pil(decoded_attack)[0]
+            # VAE is on CPU from offloading step — decode on CPU in fp32
+            # (CPU doesn't support fp16 convolutions: "slow_conv2d_cpu" not implemented for 'Half')
+            pipe.vae = pipe.vae.float()  # fp16 → fp32 for CPU
+            latents_for_decode = final_attack_images.cpu().float()
+            scaled_latents = 1 / 0.18215 * latents_for_decode
+            decoded_attack = pipe.vae.decode(scaled_latents).sample
+            decoded_attack = (decoded_attack / 2 + 0.5).clamp(0, 1)
+            decoded_attack = decoded_attack.permute(0, 2, 3, 1).numpy()
+            decoded_attack = (decoded_attack[0] * 255).round().astype("uint8")
+            attack_image_w_pil = Image.fromarray(decoded_attack)
         attack_image_w_pil.save(attack_filename)
+        log.info(f"Saved attacked image: {attack_filename}")
+        
+        # --- Restore models to GPU for the next image's forward/reversed pass ---
+        pipe.text_encoder = pipe.text_encoder.to(device).half()
+        pipe.vae = pipe.vae.to(device).half()
+        del anchor_latents_cpu, precomputed_emb, zts, head_start_latents
+        gc.collect(); torch.cuda.empty_cache()
         
         # decoded_wm_attack = wmarker.decode(attack_filename)
         # wm_bit_acc_attack, wm_success_attack = get_bit_acc_success(

@@ -205,6 +205,7 @@ class ModifiedStableDiffusionPipeline(StableDiffusionPipeline):
 
         # 8. Post-processing
         image = self.decode_latents(latents)
+        image = self.torch_to_numpy(image)
 
         # 9. Run safety checker
         image, has_nsfw_concept = self.run_safety_checker(image, device, text_embeddings.dtype)
@@ -422,6 +423,7 @@ class ModifiedStableDiffusionPipeline(StableDiffusionPipeline):
             has_nsfw_concept = None
         else:
             image = self.decode_latents_with_grad(latents)
+            image = self.torch_to_numpy(image)
 
             # 9. Run safety checker
             image, has_nsfw_concept = self.run_safety_checker(image, device, text_embeddings.dtype)

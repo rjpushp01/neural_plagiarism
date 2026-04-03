@@ -323,6 +323,7 @@ class AttackStableDiffusionPipeline(InversableStableDiffusionPipeline):
             has_nsfw_concept = None
         else:
             image = self.decode_latents(latents)
+            image = self.torch_to_numpy(image)
             # 9. Run safety checker
             image, has_nsfw_concept = self.run_safety_checker(image, device, text_embeddings.dtype)
             # 10. Convert to PIL
@@ -356,6 +357,7 @@ class AttackStableDiffusionPipeline(InversableStableDiffusionPipeline):
         shim_type: Optional[str] = "text_embeddings",
         head_start_latents: Optional[Union[torch.FloatTensor, list]] = None,
         head_start_step: Optional[int] = None,
+        precomputed_text_embeddings: Optional[torch.FloatTensor] = None,
     ):
         # 0. Default height and width to unet
         height = height or self.unet.config.sample_size * self.vae_scale_factor
@@ -373,10 +375,13 @@ class AttackStableDiffusionPipeline(InversableStableDiffusionPipeline):
         # corresponds to doing no classifier free guidance.
         do_classifier_free_guidance = guidance_scale > 1.0
 
-        # 3. Encode input prompt
-        text_embeddings = self._encode_prompt(
-            prompt, device, num_images_per_prompt, do_classifier_free_guidance, negative_prompt
-        )
+        # 3. Encode input prompt (or use precomputed to avoid needing text_encoder on GPU)
+        if precomputed_text_embeddings is not None:
+            text_embeddings = precomputed_text_embeddings.clone()
+        else:
+            text_embeddings = self._encode_prompt(
+                prompt, device, num_images_per_prompt, do_classifier_free_guidance, negative_prompt
+            )
 
         # 4. Prepare timesteps
         self.scheduler.set_timesteps(num_inference_steps, device=device)
@@ -451,6 +456,7 @@ class AttackStableDiffusionPipeline(InversableStableDiffusionPipeline):
             has_nsfw_concept = None
         else:
             image = self.decode_latents_with_grad(latents) if enable_image_grad else self.decode_latents(latents)
+            image = self.torch_to_numpy(image)
             # 9. Run safety checker
             image, has_nsfw_concept = self.run_safety_checker(image, device, text_embeddings.dtype)
             # 10. Convert to PIL

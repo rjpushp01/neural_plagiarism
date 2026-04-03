@@ -1,0 +1,372 @@
+[
+    {
+        "image_idx": 0,
+        "image_name": "coco_000000005802.jpg",
+        "original_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/test_images/original/coco_000000005802.jpg",
+        "watermarked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/ecc_watermarked/image_0000.png",
+        "watermark_quality": {
+            "psnr": 24.96965484879546,
+            "ssim": 0.7858357429504395,
+            "ms_ssim": 0.9142195582389832,
+            "lpips": 0.14821882545948029
+        },
+        "pre_attack_ecc": {
+            "ber_raw": 0.0,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 1.0
+        },
+        "attacked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/shim_attack/image_attack_0000_00.png",
+        "attack_quality": {
+            "psnr_vs_original": 22.920495236002697,
+            "psnr_vs_watermarked": 29.167250373529647,
+            "ssim": 0.7332753539085388,
+            "ms_ssim": 0.8679635524749756,
+            "lpips": 0.2950403690338135
+        },
+        "post_attack_ecc": {
+            "ber_raw": 0.0,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 1.0
+        },
+        "latent_cosine_sim": 0.9901270866394043
+    },
+    {
+        "image_idx": 1,
+        "image_name": "coco_000000012448.jpg",
+        "original_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/test_images/original/coco_000000012448.jpg",
+        "watermarked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/ecc_watermarked/image_0001.png",
+        "watermark_quality": {
+            "psnr": 25.27237657847781,
+            "ssim": 0.7636117339134216,
+            "ms_ssim": 0.9077980518341064,
+            "lpips": 0.1481330394744873
+        },
+        "pre_attack_ecc": {
+            "ber_raw": 0.0,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 1.0
+        },
+        "attacked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/shim_attack/image_attack_0001_00.png",
+        "attack_quality": {
+            "psnr_vs_original": 23.47015308414197,
+            "psnr_vs_watermarked": 30.05378614223155,
+            "ssim": 0.7254292964935303,
+            "ms_ssim": 0.8693439364433289,
+            "lpips": 0.26496565341949463
+        },
+        "post_attack_ecc": {
+            "ber_raw": 0.0,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 1.0
+        },
+        "latent_cosine_sim": 0.9933438301086426
+    },
+    {
+        "image_idx": 2,
+        "image_name": "coco_000000060623.jpg",
+        "original_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/test_images/original/coco_000000060623.jpg",
+        "watermarked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/ecc_watermarked/image_0002.png",
+        "watermark_quality": {
+            "psnr": 27.78390594790091,
+            "ssim": 0.8380867838859558,
+            "ms_ssim": 0.9003092646598816,
+            "lpips": 0.17724452912807465
+        },
+        "pre_attack_ecc": {
+            "ber_raw": 0.0,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 1.0
+        },
+        "attacked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/shim_attack/image_attack_0002_00.png",
+        "attack_quality": {
+            "psnr_vs_original": 25.141305904488384,
+            "psnr_vs_watermarked": 31.566517195241506,
+            "ssim": 0.7783319354057312,
+            "ms_ssim": 0.8389599323272705,
+            "lpips": 0.3073481619358063
+        },
+        "post_attack_ecc": {
+            "ber_raw": 0.0,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 1.0
+        },
+        "latent_cosine_sim": 0.994616687297821
+    },
+    {
+        "image_idx": 3,
+        "image_name": "coco_000000079841.jpg",
+        "original_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/test_images/original/coco_000000079841.jpg",
+        "watermarked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/ecc_watermarked/image_0003.png",
+        "watermark_quality": {
+            "psnr": 21.006370875528813,
+            "ssim": 0.6108136773109436,
+            "ms_ssim": 0.8566429615020752,
+            "lpips": 0.19207924604415894
+        },
+        "pre_attack_ecc": {
+            "ber_raw": 0.0022727272727272726,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 0.9977272727272727
+        },
+        "attacked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/shim_attack/image_attack_0003_00.png",
+        "attack_quality": {
+            "psnr_vs_original": 19.668291783969625,
+            "psnr_vs_watermarked": 26.42700755786679,
+            "ssim": 0.5739231109619141,
+            "ms_ssim": 0.8166788220405579,
+            "lpips": 0.32758378982543945
+        },
+        "post_attack_ecc": {
+            "ber_raw": 0.004545454545454545,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 0.9954545454545454
+        },
+        "latent_cosine_sim": 0.9883854389190674
+    },
+    {
+        "image_idx": 4,
+        "image_name": "coco_000000086408.jpg",
+        "original_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/test_images/original/coco_000000086408.jpg",
+        "watermarked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/ecc_watermarked/image_0004.png",
+        "watermark_quality": {
+            "psnr": 24.692734472159398,
+            "ssim": 0.8141806721687317,
+            "ms_ssim": 0.9008014798164368,
+            "lpips": 0.13729143142700195
+        },
+        "pre_attack_ecc": {
+            "ber_raw": 0.004545454545454545,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 0.9954545454545454
+        },
+        "attacked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/shim_attack/image_attack_0004_00.png",
+        "attack_quality": {
+            "psnr_vs_original": 22.341963893490156,
+            "psnr_vs_watermarked": 28.631155737375707,
+            "ssim": 0.7629343867301941,
+            "ms_ssim": 0.8460774421691895,
+            "lpips": 0.2581445276737213
+        },
+        "post_attack_ecc": {
+            "ber_raw": 0.00909090909090909,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 0.990909090909091
+        },
+        "latent_cosine_sim": 0.9940146803855896
+    },
+    {
+        "image_idx": 5,
+        "image_name": "coco_000000113588.jpg",
+        "original_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/test_images/original/coco_000000113588.jpg",
+        "watermarked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/ecc_watermarked/image_0005.png",
+        "watermark_quality": {
+            "psnr": 26.268741045624967,
+            "ssim": 0.8009207844734192,
+            "ms_ssim": 0.9125071167945862,
+            "lpips": 0.1358577162027359
+        },
+        "pre_attack_ecc": {
+            "ber_raw": 0.0022727272727272726,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 0.9977272727272727
+        },
+        "attacked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/shim_attack/image_attack_0005_00.png",
+        "attack_quality": {
+            "psnr_vs_original": 23.82818524235628,
+            "psnr_vs_watermarked": 29.745842510409037,
+            "ssim": 0.7465642094612122,
+            "ms_ssim": 0.8634678721427917,
+            "lpips": 0.2797568142414093
+        },
+        "post_attack_ecc": {
+            "ber_raw": 0.0022727272727272726,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 0.9977272727272727
+        },
+        "latent_cosine_sim": 0.991241455078125
+    },
+    {
+        "image_idx": 6,
+        "image_name": "coco_000000118113.jpg",
+        "original_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/test_images/original/coco_000000118113.jpg",
+        "watermarked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/ecc_watermarked/image_0006.png",
+        "watermark_quality": {
+            "psnr": 29.067923039730616,
+            "ssim": 0.853431761264801,
+            "ms_ssim": 0.8709427714347839,
+            "lpips": 0.1837381273508072
+        },
+        "pre_attack_ecc": {
+            "ber_raw": 0.0,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 1.0
+        },
+        "attacked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/shim_attack/image_attack_0006_00.png",
+        "attack_quality": {
+            "psnr_vs_original": 26.84302561059112,
+            "psnr_vs_watermarked": 35.54089794556092,
+            "ssim": 0.7955300807952881,
+            "ms_ssim": 0.8199453353881836,
+            "lpips": 0.27632272243499756
+        },
+        "post_attack_ecc": {
+            "ber_raw": 0.0,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 1.0
+        },
+        "latent_cosine_sim": 0.9940394163131714
+    },
+    {
+        "image_idx": 7,
+        "image_name": "coco_000000184613.jpg",
+        "original_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/test_images/original/coco_000000184613.jpg",
+        "watermarked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/ecc_watermarked/image_0007.png",
+        "watermark_quality": {
+            "psnr": 18.802050568071795,
+            "ssim": 0.4351688623428345,
+            "ms_ssim": 0.7706658244132996,
+            "lpips": 0.24888700246810913
+        },
+        "pre_attack_ecc": {
+            "ber_raw": 0.004545454545454545,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 0.9954545454545454
+        },
+        "attacked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/shim_attack/image_attack_0007_00.png",
+        "attack_quality": {
+            "psnr_vs_original": 18.339170083042728,
+            "psnr_vs_watermarked": 25.47142519147021,
+            "ssim": 0.4249695837497711,
+            "ms_ssim": 0.7416321635246277,
+            "lpips": 0.3966239094734192
+        },
+        "post_attack_ecc": {
+            "ber_raw": 0.004545454545454545,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 0.9954545454545454
+        },
+        "latent_cosine_sim": 0.9898595809936523
+    },
+    {
+        "image_idx": 8,
+        "image_name": "coco_000000193271.jpg",
+        "original_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/test_images/original/coco_000000193271.jpg",
+        "watermarked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/ecc_watermarked/image_0008.png",
+        "watermark_quality": {
+            "psnr": 25.94172980813493,
+            "ssim": 0.8000754714012146,
+            "ms_ssim": 0.8987067341804504,
+            "lpips": 0.1349763423204422
+        },
+        "pre_attack_ecc": {
+            "ber_raw": 0.0022727272727272726,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 0.9977272727272727
+        },
+        "attacked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/shim_attack/image_attack_0008_00.png",
+        "attack_quality": {
+            "psnr_vs_original": 23.644870867703602,
+            "psnr_vs_watermarked": 30.375270638133706,
+            "ssim": 0.7423534989356995,
+            "ms_ssim": 0.8473207354545593,
+            "lpips": 0.2623399794101715
+        },
+        "post_attack_ecc": {
+            "ber_raw": 0.0022727272727272726,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 0.9977272727272727
+        },
+        "latent_cosine_sim": 0.990700900554657
+    },
+    {
+        "image_idx": 9,
+        "image_name": "coco_000000204805.jpg",
+        "original_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/test_images/original/coco_000000204805.jpg",
+        "watermarked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/ecc_watermarked/image_0009.png",
+        "watermark_quality": {
+            "psnr": 22.563185186357465,
+            "ssim": 0.7340381741523743,
+            "ms_ssim": 0.913287341594696,
+            "lpips": 0.17187024652957916
+        },
+        "pre_attack_ecc": {
+            "ber_raw": 0.0,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 1.0
+        },
+        "attacked_path": "/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/shim_attack/image_attack_0009_00.png",
+        "attack_quality": {
+            "psnr_vs_original": 21.180003285688564,
+            "psnr_vs_watermarked": 27.550847843474852,
+            "ssim": 0.7019658088684082,
+            "ms_ssim": 0.8716294169425964,
+            "lpips": 0.3031470477581024
+        },
+        "post_attack_ecc": {
+            "ber_raw": 0.0,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "recovered": true,
+            "bch_corrections": 0,
+            "avg_vote_margin": 1.0
+        },
+        "latent_cosine_sim": 0.9907057285308838
+    }
+]
