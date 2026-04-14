@@ -1,0 +1,292 @@
+[
+    {
+        "idx": 0,
+        "name": "coco_000000005802.jpg",
+        "orig_path": "test_images/original/coco_000000005802.jpg",
+        "wm_path": "evaluation_outputs/ecc_invisible_eval/watermarked_images/image_0000.png",
+        "psnr_wm": 40.917699918436234,
+        "pre_attack": {
+            "text": "test",
+            "bch_corrections": 0,
+            "ber_raw": 0.0,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "message_recovered": true
+        },
+        "atk_path": "evaluation_outputs/ecc_invisible_eval/shim_attack/image_attack_0000_00.png",
+        "attack_quality": {
+            "psnr": 27.380245110804932,
+            "ssim": 0.8366467356681824,
+            "lpips": 0.16098879277706146
+        },
+        "post_attack": {
+            "text": null,
+            "bch_corrections": -1,
+            "ber_raw": 0.40454545454545454,
+            "ber_voted": 0.3409090909090909,
+            "ber_final": 0.3409090909090909,
+            "message_recovered": false
+        }
+    },
+    {
+        "idx": 1,
+        "name": "coco_000000012448.jpg",
+        "orig_path": "test_images/original/coco_000000012448.jpg",
+        "wm_path": "evaluation_outputs/ecc_invisible_eval/watermarked_images/image_0001.png",
+        "psnr_wm": 40.15222010991215,
+        "pre_attack": {
+            "text": null,
+            "bch_corrections": -1,
+            "ber_raw": 0.075,
+            "ber_voted": 0.06818181818181818,
+            "ber_final": 0.06818181818181818,
+            "message_recovered": false
+        },
+        "atk_path": "evaluation_outputs/ecc_invisible_eval/shim_attack/image_attack_0001_00.png",
+        "attack_quality": {
+            "psnr": 27.577409765267078,
+            "ssim": 0.7996062636375427,
+            "lpips": 0.15329578518867493
+        },
+        "post_attack": {
+            "text": null,
+            "bch_corrections": -1,
+            "ber_raw": 0.4636363636363636,
+            "ber_voted": 0.4431818181818182,
+            "ber_final": 0.4431818181818182,
+            "message_recovered": false
+        }
+    },
+    {
+        "idx": 2,
+        "name": "coco_000000060623.jpg",
+        "orig_path": "test_images/original/coco_000000060623.jpg",
+        "wm_path": "evaluation_outputs/ecc_invisible_eval/watermarked_images/image_0002.png",
+        "psnr_wm": 40.251010284122366,
+        "pre_attack": {
+            "text": "test",
+            "bch_corrections": 0,
+            "ber_raw": 0.04090909090909091,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "message_recovered": true
+        },
+        "atk_path": "evaluation_outputs/ecc_invisible_eval/shim_attack/image_attack_0002_00.png",
+        "attack_quality": {
+            "psnr": 31.697270075601367,
+            "ssim": 0.8710384368896484,
+            "lpips": 0.1558023989200592
+        },
+        "post_attack": {
+            "text": null,
+            "bch_corrections": -1,
+            "ber_raw": 0.4022727272727273,
+            "ber_voted": 0.375,
+            "ber_final": 0.375,
+            "message_recovered": false
+        }
+    },
+    {
+        "idx": 3,
+        "name": "coco_000000079841.jpg",
+        "orig_path": "test_images/original/coco_000000079841.jpg",
+        "wm_path": "evaluation_outputs/ecc_invisible_eval/watermarked_images/image_0003.png",
+        "psnr_wm": 40.038302330277844,
+        "pre_attack": {
+            "text": "test",
+            "bch_corrections": 1,
+            "ber_raw": 0.022727272727272728,
+            "ber_voted": 0.011363636363636364,
+            "ber_final": 0.0,
+            "message_recovered": true
+        },
+        "atk_path": "evaluation_outputs/ecc_invisible_eval/shim_attack/image_attack_0003_00.png",
+        "attack_quality": {
+            "psnr": 22.89243596013307,
+            "ssim": 0.6744429469108582,
+            "lpips": 0.20137228071689606
+        },
+        "post_attack": {
+            "text": null,
+            "bch_corrections": -1,
+            "ber_raw": 0.4,
+            "ber_voted": 0.3181818181818182,
+            "ber_final": 0.3181818181818182,
+            "message_recovered": false
+        }
+    },
+    {
+        "idx": 4,
+        "name": "coco_000000086408.jpg",
+        "orig_path": "test_images/original/coco_000000086408.jpg",
+        "wm_path": "evaluation_outputs/ecc_invisible_eval/watermarked_images/image_0004.png",
+        "psnr_wm": 39.308544226494206,
+        "pre_attack": {
+            "text": "test",
+            "bch_corrections": 0,
+            "ber_raw": 0.006818181818181818,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "message_recovered": true
+        },
+        "atk_path": "evaluation_outputs/ecc_invisible_eval/shim_attack/image_attack_0004_00.png",
+        "attack_quality": {
+            "psnr": 28.496584961058034,
+            "ssim": 0.865606963634491,
+            "lpips": 0.1123598963022232
+        },
+        "post_attack": {
+            "text": null,
+            "bch_corrections": -1,
+            "ber_raw": 0.37727272727272726,
+            "ber_voted": 0.32954545454545453,
+            "ber_final": 0.32954545454545453,
+            "message_recovered": false
+        }
+    },
+    {
+        "idx": 5,
+        "name": "coco_000000113588.jpg",
+        "orig_path": "test_images/original/coco_000000113588.jpg",
+        "wm_path": "evaluation_outputs/ecc_invisible_eval/watermarked_images/image_0005.png",
+        "psnr_wm": 40.67411196653788,
+        "pre_attack": {
+            "text": null,
+            "bch_corrections": -1,
+            "ber_raw": 0.15681818181818183,
+            "ber_voted": 0.125,
+            "ber_final": 0.125,
+            "message_recovered": false
+        },
+        "atk_path": "evaluation_outputs/ecc_invisible_eval/shim_attack/image_attack_0005_00.png",
+        "attack_quality": {
+            "psnr": 29.26395955237936,
+            "ssim": 0.8470790982246399,
+            "lpips": 0.1465081125497818
+        },
+        "post_attack": {
+            "text": null,
+            "bch_corrections": -1,
+            "ber_raw": 0.39090909090909093,
+            "ber_voted": 0.375,
+            "ber_final": 0.375,
+            "message_recovered": false
+        }
+    },
+    {
+        "idx": 6,
+        "name": "coco_000000118113.jpg",
+        "orig_path": "test_images/original/coco_000000118113.jpg",
+        "wm_path": "evaluation_outputs/ecc_invisible_eval/watermarked_images/image_0006.png",
+        "psnr_wm": 41.261093803181495,
+        "pre_attack": {
+            "text": null,
+            "bch_corrections": -1,
+            "ber_raw": 0.10909090909090909,
+            "ber_voted": 0.07954545454545454,
+            "ber_final": 0.07954545454545454,
+            "message_recovered": false
+        },
+        "atk_path": "evaluation_outputs/ecc_invisible_eval/shim_attack/image_attack_0006_00.png",
+        "attack_quality": {
+            "psnr": 36.73532515489965,
+            "ssim": 0.8784118294715881,
+            "lpips": 0.13014905154705048
+        },
+        "post_attack": {
+            "text": null,
+            "bch_corrections": -1,
+            "ber_raw": 0.4159090909090909,
+            "ber_voted": 0.3977272727272727,
+            "ber_final": 0.3977272727272727,
+            "message_recovered": false
+        }
+    },
+    {
+        "idx": 7,
+        "name": "coco_000000184613.jpg",
+        "orig_path": "test_images/original/coco_000000184613.jpg",
+        "wm_path": "evaluation_outputs/ecc_invisible_eval/watermarked_images/image_0007.png",
+        "psnr_wm": 39.693614143578436,
+        "pre_attack": {
+            "text": "test",
+            "bch_corrections": 2,
+            "ber_raw": 0.06363636363636363,
+            "ber_voted": 0.022727272727272728,
+            "ber_final": 0.0,
+            "message_recovered": true
+        },
+        "atk_path": "evaluation_outputs/ecc_invisible_eval/shim_attack/image_attack_0007_00.png",
+        "attack_quality": {
+            "psnr": 19.42627421022731,
+            "ssim": 0.47764134407043457,
+            "lpips": 0.2500225007534027
+        },
+        "post_attack": {
+            "text": null,
+            "bch_corrections": -1,
+            "ber_raw": 0.5113636363636364,
+            "ber_voted": 0.5227272727272727,
+            "ber_final": 0.5227272727272727,
+            "message_recovered": false
+        }
+    },
+    {
+        "idx": 8,
+        "name": "coco_000000193271.jpg",
+        "orig_path": "test_images/original/coco_000000193271.jpg",
+        "wm_path": "evaluation_outputs/ecc_invisible_eval/watermarked_images/image_0008.png",
+        "psnr_wm": 39.68028056825098,
+        "pre_attack": {
+            "text": "test",
+            "bch_corrections": 0,
+            "ber_raw": 0.0022727272727272726,
+            "ber_voted": 0.0,
+            "ber_final": 0.0,
+            "message_recovered": true
+        },
+        "atk_path": "evaluation_outputs/ecc_invisible_eval/shim_attack/image_attack_0008_00.png",
+        "attack_quality": {
+            "psnr": 29.430714949829337,
+            "ssim": 0.8515892624855042,
+            "lpips": 0.12154950201511383
+        },
+        "post_attack": {
+            "text": null,
+            "bch_corrections": -1,
+            "ber_raw": 0.4022727272727273,
+            "ber_voted": 0.375,
+            "ber_final": 0.375,
+            "message_recovered": false
+        }
+    },
+    {
+        "idx": 9,
+        "name": "coco_000000204805.jpg",
+        "orig_path": "test_images/original/coco_000000204805.jpg",
+        "wm_path": "evaluation_outputs/ecc_invisible_eval/watermarked_images/image_0009.png",
+        "psnr_wm": 46.966965172524496,
+        "pre_attack": {
+            "text": "\u0000\u0000\u0000\u0000",
+            "bch_corrections": 0,
+            "ber_raw": 0.48863636363636365,
+            "ber_voted": 0.48863636363636365,
+            "ber_final": 0.48863636363636365,
+            "message_recovered": false
+        },
+        "atk_path": "evaluation_outputs/ecc_invisible_eval/shim_attack/image_attack_0009_00.png",
+        "attack_quality": {
+            "psnr": 24.582488437497865,
+            "ssim": 0.7808103561401367,
+            "lpips": 0.15302124619483948
+        },
+        "post_attack": {
+            "text": "\u0000\u0000\u0000\u0000",
+            "bch_corrections": 0,
+            "ber_raw": 0.47954545454545455,
+            "ber_voted": 0.48863636363636365,
+            "ber_final": 0.48863636363636365,
+            "message_recovered": false
+        }
+    }
+]

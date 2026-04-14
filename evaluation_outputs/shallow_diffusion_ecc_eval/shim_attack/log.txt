@@ -1,0 +1,142 @@
+Info Wed Apr  8 12:02:09 2026 | Arguments: {'target_folder': 'evaluation_outputs/shallow_diffusion_ecc_eval/watermarked_images', 'start': 0, 'end': 10, 'gpu': 0, 'image_length': 512, 'model_id': 'Manojb/stable-diffusion-2-1-base', 'num_images': 1, 'guidance_scale': 7.5, 'num_inference_steps': 50, 'attack_num_inference_steps': 50, 'output_folder': 'evaluation_outputs/shallow_diffusion_ecc_eval/shim_attack', 'start_step': 45, 'shortcut_step': -1, 'iters': 5, 'lr': 0.01, 'gamma1': 0.1, 'gamma2': 100000.0, 'gamma3': 0.001, 'eps': [10.0], 'k': [47], 'watermark_text': 'test', 'watermark_method': 'dwtDctSvd', 'gen_seed': 0, 'decode_inv': False, 'original_folder': None, 'mask_attack': False}
+Info Wed Apr  8 12:02:12 2026 | Total images 10
+Info Wed Apr  8 12:02:12 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Wed Apr  8 12:02:18 2026 | Startup timestep 100
+Info Wed Apr  8 12:02:19 2026 | Offloaded text_encoder + VAE + anchors to CPU (freed ~1GB VRAM for optimization)
+Info Wed Apr  8 12:02:19 2026 | Optimize latent for step 47, timestep 60
+Info Wed Apr  8 12:02:20 2026 | ep 0 | loss 27.256989, loss norm 6.021798, loss latent 0.659668, loss semantic 20.575523, loss image 0.000000, grad norm 1.016405
+Info Wed Apr  8 12:02:21 2026 | ep 1 | loss 23.749077, loss norm 2.550137, loss latent 0.659180, loss semantic 20.539761, loss image 0.000000, grad norm 1.016104
+Info Wed Apr  8 12:02:22 2026 | ep 2 | loss 21.425438, loss norm 0.000000, loss latent 0.659180, loss semantic 20.766258, loss image 0.000000, grad norm 0.604975
+Info Wed Apr  8 12:02:24 2026 | ep 3 | loss 21.175098, loss norm 0.000000, loss latent 0.659180, loss semantic 20.515919, loss image 0.000000, grad norm 0.144850
+Info Wed Apr  8 12:02:25 2026 | ep 4 | loss 21.371794, loss norm 0.000000, loss latent 0.659180, loss semantic 20.712614, loss image 0.000000, grad norm 0.542776
+Info Wed Apr  8 12:02:25 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.04, 0.00, 0.00
+Info Wed Apr  8 12:02:36 2026 | Saved attacked image: evaluation_outputs/shallow_diffusion_ecc_eval/shim_attack/image_attack_0000_00.png
+Info Wed Apr  8 12:02:37 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Wed Apr  8 12:02:42 2026 | Startup timestep 100
+Info Wed Apr  8 12:02:43 2026 | Offloaded text_encoder + VAE + anchors to CPU (freed ~1GB VRAM for optimization)
+Info Wed Apr  8 12:02:43 2026 | Optimize latent for step 47, timestep 60
+Info Wed Apr  8 12:02:44 2026 | ep 0 | loss 27.290268, loss norm 6.018456, loss latent 0.696289, loss semantic 20.575523, loss image 0.000000, grad norm 1.016736
+Info Wed Apr  8 12:02:45 2026 | ep 1 | loss 23.789316, loss norm 2.547306, loss latent 0.696289, loss semantic 20.545721, loss image 0.000000, grad norm 1.017078
+Info Wed Apr  8 12:02:46 2026 | ep 2 | loss 21.462547, loss norm 0.000000, loss latent 0.696289, loss semantic 20.766258, loss image 0.000000, grad norm 0.608974
+Info Wed Apr  8 12:02:47 2026 | ep 3 | loss 21.212208, loss norm 0.000000, loss latent 0.696289, loss semantic 20.515919, loss image 0.000000, grad norm 0.146898
+Info Wed Apr  8 12:02:48 2026 | ep 4 | loss 21.408903, loss norm 0.000000, loss latent 0.696289, loss semantic 20.712614, loss image 0.000000, grad norm 0.545153
+Info Wed Apr  8 12:02:49 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.03, 0.00, 0.00
+Info Wed Apr  8 12:03:00 2026 | Saved attacked image: evaluation_outputs/shallow_diffusion_ecc_eval/shim_attack/image_attack_0001_00.png
+Info Wed Apr  8 12:03:00 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Wed Apr  8 12:03:06 2026 | Startup timestep 100
+Info Wed Apr  8 12:03:06 2026 | Offloaded text_encoder + VAE + anchors to CPU (freed ~1GB VRAM for optimization)
+Info Wed Apr  8 12:03:06 2026 | Optimize latent for step 47, timestep 60
+Info Wed Apr  8 12:03:07 2026 | ep 0 | loss 27.303856, loss norm 6.032531, loss latent 0.695801, loss semantic 20.575523, loss image 0.000000, grad norm 1.016556
+Info Wed Apr  8 12:03:08 2026 | ep 1 | loss 23.799595, loss norm 2.564034, loss latent 0.695801, loss semantic 20.539761, loss image 0.000000, grad norm 1.016379
+Info Wed Apr  8 12:03:09 2026 | ep 2 | loss 21.468019, loss norm 0.000000, loss latent 0.695801, loss semantic 20.772219, loss image 0.000000, grad norm 0.614997
+Info Wed Apr  8 12:03:11 2026 | ep 3 | loss 21.217680, loss norm 0.000000, loss latent 0.695801, loss semantic 20.521879, loss image 0.000000, grad norm 0.141907
+Info Wed Apr  8 12:03:12 2026 | ep 4 | loss 21.414375, loss norm 0.000000, loss latent 0.695801, loss semantic 20.718575, loss image 0.000000, grad norm 0.548702
+Info Wed Apr  8 12:03:12 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.00, 0.00, 0.00
+Info Wed Apr  8 12:03:23 2026 | Saved attacked image: evaluation_outputs/shallow_diffusion_ecc_eval/shim_attack/image_attack_0002_00.png
+Info Wed Apr  8 12:03:23 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Wed Apr  8 12:03:29 2026 | Startup timestep 100
+Info Wed Apr  8 12:03:30 2026 | Offloaded text_encoder + VAE + anchors to CPU (freed ~1GB VRAM for optimization)
+Info Wed Apr  8 12:03:30 2026 | Optimize latent for step 47, timestep 60
+Info Wed Apr  8 12:03:31 2026 | ep 0 | loss 27.252941, loss norm 6.014819, loss latent 0.662598, loss semantic 20.575523, loss image 0.000000, grad norm 1.015838
+Info Wed Apr  8 12:03:32 2026 | ep 1 | loss 23.742996, loss norm 2.540638, loss latent 0.662598, loss semantic 20.539761, loss image 0.000000, grad norm 1.017294
+Info Wed Apr  8 12:03:33 2026 | ep 2 | loss 21.422407, loss norm 0.000000, loss latent 0.662109, loss semantic 20.760298, loss image 0.000000, grad norm 0.607852
+Info Wed Apr  8 12:03:34 2026 | ep 3 | loss 21.177540, loss norm 0.000000, loss latent 0.661621, loss semantic 20.515919, loss image 0.000000, grad norm 0.147719
+Info Wed Apr  8 12:03:35 2026 | ep 4 | loss 21.380196, loss norm 0.000000, loss latent 0.661621, loss semantic 20.718575, loss image 0.000000, grad norm 0.546620
+Info Wed Apr  8 12:03:36 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.05, 0.00, 0.00
+Info Wed Apr  8 12:03:47 2026 | Saved attacked image: evaluation_outputs/shallow_diffusion_ecc_eval/shim_attack/image_attack_0003_00.png
+Info Wed Apr  8 12:03:47 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Wed Apr  8 12:03:53 2026 | Startup timestep 100
+Info Wed Apr  8 12:03:53 2026 | Offloaded text_encoder + VAE + anchors to CPU (freed ~1GB VRAM for optimization)
+Info Wed Apr  8 12:03:53 2026 | Optimize latent for step 47, timestep 60
+Info Wed Apr  8 12:03:54 2026 | ep 0 | loss 27.399595, loss norm 6.049170, loss latent 0.774902, loss semantic 20.575523, loss image 0.000000, grad norm 1.015621
+Info Wed Apr  8 12:03:56 2026 | ep 1 | loss 23.892946, loss norm 2.578283, loss latent 0.774902, loss semantic 20.539761, loss image 0.000000, grad norm 1.016606
+Info Wed Apr  8 12:03:57 2026 | ep 2 | loss 21.541161, loss norm 0.000000, loss latent 0.774902, loss semantic 20.766258, loss image 0.000000, grad norm 0.601890
+Info Wed Apr  8 12:03:58 2026 | ep 3 | loss 21.290333, loss norm 0.000000, loss latent 0.774414, loss semantic 20.515919, loss image 0.000000, grad norm 0.145505
+Info Wed Apr  8 12:03:59 2026 | ep 4 | loss 21.487028, loss norm 0.000000, loss latent 0.774414, loss semantic 20.712614, loss image 0.000000, grad norm 0.541620
+Info Wed Apr  8 12:03:59 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.02, 0.00, 0.00
+Info Wed Apr  8 12:04:11 2026 | Saved attacked image: evaluation_outputs/shallow_diffusion_ecc_eval/shim_attack/image_attack_0004_00.png
+Info Wed Apr  8 12:04:11 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Wed Apr  8 12:04:17 2026 | Startup timestep 100
+Info Wed Apr  8 12:04:17 2026 | Offloaded text_encoder + VAE + anchors to CPU (freed ~1GB VRAM for optimization)
+Info Wed Apr  8 12:04:17 2026 | Optimize latent for step 47, timestep 60
+Info Wed Apr  8 12:04:18 2026 | ep 0 | loss 27.294928, loss norm 6.026533, loss latent 0.692871, loss semantic 20.575523, loss image 0.000000, grad norm 1.015805
+Info Wed Apr  8 12:04:20 2026 | ep 1 | loss 23.796707, loss norm 2.552155, loss latent 0.692871, loss semantic 20.551682, loss image 0.000000, grad norm 1.017142
+Info Wed Apr  8 12:04:21 2026 | ep 2 | loss 21.465090, loss norm 0.000000, loss latent 0.692871, loss semantic 20.772219, loss image 0.000000, grad norm 0.610166
+Info Wed Apr  8 12:04:22 2026 | ep 3 | loss 21.208302, loss norm 0.000000, loss latent 0.692383, loss semantic 20.515919, loss image 0.000000, grad norm 0.147162
+Info Wed Apr  8 12:04:23 2026 | ep 4 | loss 21.404997, loss norm 0.000000, loss latent 0.692383, loss semantic 20.712614, loss image 0.000000, grad norm 0.547304
+Info Wed Apr  8 12:04:23 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.03, 0.00, 0.00
+Info Wed Apr  8 12:04:34 2026 | Saved attacked image: evaluation_outputs/shallow_diffusion_ecc_eval/shim_attack/image_attack_0005_00.png
+Info Wed Apr  8 12:04:35 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Wed Apr  8 12:04:41 2026 | Startup timestep 100
+Info Wed Apr  8 12:04:41 2026 | Offloaded text_encoder + VAE + anchors to CPU (freed ~1GB VRAM for optimization)
+Info Wed Apr  8 12:04:41 2026 | Optimize latent for step 47, timestep 60
+Info Wed Apr  8 12:04:42 2026 | ep 0 | loss 27.303833, loss norm 6.019814, loss latent 0.708496, loss semantic 20.575523, loss image 0.000000, grad norm 1.016103
+Info Wed Apr  8 12:04:43 2026 | ep 1 | loss 23.796175, loss norm 2.548407, loss latent 0.708008, loss semantic 20.539761, loss image 0.000000, grad norm 1.016324
+Info Wed Apr  8 12:04:45 2026 | ep 2 | loss 21.474266, loss norm 0.000000, loss latent 0.708008, loss semantic 20.766258, loss image 0.000000, grad norm 0.611152
+Info Wed Apr  8 12:04:46 2026 | ep 3 | loss 21.217966, loss norm 0.000000, loss latent 0.708008, loss semantic 20.509958, loss image 0.000000, grad norm 0.144432
+Info Wed Apr  8 12:04:47 2026 | ep 4 | loss 21.426582, loss norm 0.000000, loss latent 0.708008, loss semantic 20.718575, loss image 0.000000, grad norm 0.548099
+Info Wed Apr  8 12:04:47 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.04, 0.00, 0.00
+Info Wed Apr  8 12:05:00 2026 | Saved attacked image: evaluation_outputs/shallow_diffusion_ecc_eval/shim_attack/image_attack_0006_00.png
+Info Wed Apr  8 12:05:00 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Wed Apr  8 12:05:06 2026 | Startup timestep 100
+Info Wed Apr  8 12:05:07 2026 | Offloaded text_encoder + VAE + anchors to CPU (freed ~1GB VRAM for optimization)
+Info Wed Apr  8 12:05:07 2026 | Optimize latent for step 47, timestep 60
+Info Wed Apr  8 12:05:08 2026 | ep 0 | loss 27.233688, loss norm 6.036483, loss latent 0.615723, loss semantic 20.581484, loss image 0.000000, grad norm 1.016452
+Info Wed Apr  8 12:05:09 2026 | ep 1 | loss 23.719440, loss norm 2.564446, loss latent 0.615234, loss semantic 20.539761, loss image 0.000000, grad norm 1.015851
+Info Wed Apr  8 12:05:10 2026 | ep 2 | loss 21.369572, loss norm 0.000000, loss latent 0.615234, loss semantic 20.754337, loss image 0.000000, grad norm 0.597563
+Info Wed Apr  8 12:05:11 2026 | ep 3 | loss 21.130665, loss norm 0.000000, loss latent 0.614746, loss semantic 20.515919, loss image 0.000000, grad norm 0.142434
+Info Wed Apr  8 12:05:12 2026 | ep 4 | loss 21.321400, loss norm 0.000000, loss latent 0.614746, loss semantic 20.706654, loss image 0.000000, grad norm 0.532527
+Info Wed Apr  8 12:05:12 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.07, 0.00, 0.00
+Info Wed Apr  8 12:05:24 2026 | Saved attacked image: evaluation_outputs/shallow_diffusion_ecc_eval/shim_attack/image_attack_0007_00.png
+Info Wed Apr  8 12:05:24 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Wed Apr  8 12:05:30 2026 | Startup timestep 100
+Info Wed Apr  8 12:05:31 2026 | Offloaded text_encoder + VAE + anchors to CPU (freed ~1GB VRAM for optimization)
+Info Wed Apr  8 12:05:31 2026 | Optimize latent for step 47, timestep 60
+Info Wed Apr  8 12:05:32 2026 | ep 0 | loss 27.310667, loss norm 6.038366, loss latent 0.696777, loss semantic 20.575523, loss image 0.000000, grad norm 1.015920
+Info Wed Apr  8 12:05:33 2026 | ep 1 | loss 23.800920, loss norm 2.564383, loss latent 0.696777, loss semantic 20.539761, loss image 0.000000, grad norm 1.016465
+Info Wed Apr  8 12:05:34 2026 | ep 2 | loss 21.463036, loss norm 0.000000, loss latent 0.696777, loss semantic 20.766258, loss image 0.000000, grad norm 0.606674
+Info Wed Apr  8 12:05:35 2026 | ep 3 | loss 21.212208, loss norm 0.000000, loss latent 0.696289, loss semantic 20.515919, loss image 0.000000, grad norm 0.143472
+Info Wed Apr  8 12:05:36 2026 | ep 4 | loss 21.402943, loss norm 0.000000, loss latent 0.696289, loss semantic 20.706654, loss image 0.000000, grad norm 0.543801
+Info Wed Apr  8 12:05:36 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.03, 0.00, 0.00
+Info Wed Apr  8 12:05:48 2026 | Saved attacked image: evaluation_outputs/shallow_diffusion_ecc_eval/shim_attack/image_attack_0008_00.png
+Info Wed Apr  8 12:05:48 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Wed Apr  8 12:05:54 2026 | Startup timestep 100
+Info Wed Apr  8 12:05:54 2026 | Offloaded text_encoder + VAE + anchors to CPU (freed ~1GB VRAM for optimization)
+Info Wed Apr  8 12:05:54 2026 | Optimize latent for step 47, timestep 60
+Info Wed Apr  8 12:05:55 2026 | ep 0 | loss 27.298740, loss norm 6.023023, loss latent 0.700195, loss semantic 20.575523, loss image 0.000000, grad norm 1.016698
+Info Wed Apr  8 12:05:56 2026 | ep 1 | loss 23.791481, loss norm 2.551526, loss latent 0.700195, loss semantic 20.539761, loss image 0.000000, grad norm 1.016336
+Info Wed Apr  8 12:05:57 2026 | ep 2 | loss 21.466454, loss norm 0.000000, loss latent 0.700195, loss semantic 20.766258, loss image 0.000000, grad norm 0.605273
+Info Wed Apr  8 12:05:59 2026 | ep 3 | loss 21.210154, loss norm 0.000000, loss latent 0.700195, loss semantic 20.509958, loss image 0.000000, grad norm 0.145026
+Info Wed Apr  8 12:06:00 2026 | ep 4 | loss 21.412809, loss norm 0.000000, loss latent 0.700195, loss semantic 20.712614, loss image 0.000000, grad norm 0.539835
+Info Wed Apr  8 12:06:00 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.06, 0.00, 0.00
+Info Wed Apr  8 12:06:11 2026 | Saved attacked image: evaluation_outputs/shallow_diffusion_ecc_eval/shim_attack/image_attack_0009_00.png
