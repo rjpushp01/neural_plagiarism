@@ -222,19 +222,13 @@ class LDPCWatermarker:
 
         indices = self._get_indices(latent.shape)
 
-        # Sign-nudging: preserve magnitude, adjust sign to encode bit
-        for j, idx in enumerate(indices):
-            bit = bits[j]
-            val = flat_latent[idx]
+        # Quantile Overwrite (Distribution Preserving Strategy)
+        np.random.seed(self.ecc_seed)
+        u = np.random.uniform(0, 1, len(bits))
+        mapped_values = norm.ppf((u + bits) / 2.0).astype(np.float32)
 
-            if bit == 1:
-                # Ensure positive with margin
-                if val < margin:
-                    flat_latent[idx] = margin + abs(val) * 0.1
-            else:
-                # Ensure negative with margin
-                if val > -margin:
-                    flat_latent[idx] = -margin - abs(val) * 0.1
+        for j, idx in enumerate(indices):
+            flat_latent[idx] = mapped_values[j]
 
         result = flat_latent.reshape(latent.shape)
         if isinstance(latent_tensor, torch.Tensor):

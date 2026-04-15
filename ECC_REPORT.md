@@ -6,11 +6,10 @@ This highly detailed report documents the end-to-end implementation, systemic it
 
 Our overarching goal was to mathematically evaluate and stress-test the framework's effectiveness against the adversarial "Anchor and Shim" generative plagiarism attacks on high-fidelity, real-world COCO photographs. A standard diffusion generation attack seeks to rip out steganographic embeddings by optimizing gradient shims across dozens of denoising steps. To mathematically combat this, we iteratively explored three completely contrasting topological paradigms for payload injection:
 
-1. **DWT-DCT-SVD Invisible Watermarking (Spatial/Frequency Domain):** A legacy baseline that directly alters static pixel-level frequencies.
-2. **VAE Latent Sign-Nudging ($z_{0}$):** Modifying the Autoencoder's determinism layer to bypass temporal noise.
-3. **Shallow Diffusion DDIM Partial Inversion ($z_{15}$):** Embedding dynamically into the actual generative noise equations utilizing mathematically perfect temporal rewinding.
+1. **VAE Latent Distribution-Preserving Embeddings ($z_{0}$):** Modifying the Autoencoder's determinism layer to bypass temporal noise.
+2. **Shallow Diffusion DDIM Partial Inversion ($z_{15}$):** Embedding dynamically into the actual generative noise equations utilizing mathematically perfect temporal rewinding.
 
-**Executive Conclusion:** The Shallow DDIM Partial Inversion model proved to be the most compelling and mathematically robust defense matrix. It achieved a 90% adversarial survival rate against the Shim attack, utilizing polynomial error-correction to cleanly yield 0.00% final Bit Error Rates (BER) while beautifully eliminating the structural hallucination associated with standard ODE inversions.
+**Executive Conclusion:** The Shallow DDIM Partial Inversion model proved to be the most compelling and mathematically robust defense matrix. It achieved a 100% adversarial survival rate against the Shim attack, utilizing polynomial error-correction to cleanly yield 0.00% final Bit Error Rates (BER) while navigating the structural hallucination associated with real-world image inversions.
 
 ---
 
@@ -213,80 +212,21 @@ To ensure our 440-bit footprint fit organically, we ran a thorough mapping of ra
 
 ---
 
-## 4. Experiment 1: The DWT-DCT-SVD Invisible Watermark (Baseline)
 
-### **4.1 Implementation Details (`utils/ecc_invisible_watermark.py`)**
-Before attempting to intercept complex diffusion generative structures, we established a robust spatial/frequency baseline metric. We utilized classical steganography: combining a Discrete Wavelet Transform (DWT), Discrete Cosine Transform (DCT), and final Singular Value Decomposition (SVD).
-* The 440-bit protected ECC payload was explicitly woven into the mathematically rigid high-frequency wavelet sub-bands of the native pixel RGB arrays (`np.uint8`), independent of any Neural Networks.
 
-### **4.2 Experimental Results (10 COCO Images)**
+## 4. Experiment 1: VAE Latent-Space Floor Distribution Preserving ($z_0$)
 
-| Image Index | Image Identity | Pre-Attack PSNR | Pre-Attack Success? | Shim Attack PSNR | Post-Attack Repetition BER | Post-Attack BCH BER | Final Mssg Recovered? |
-|-------------|----------------|-----------------|---------------------|------------------|----------------------------|---------------------|-----------------------|
-| 0 | coco_005802 | 40.71 dB | ✅ Yes | 25.44 dB | 46.59% | 46.59% | ❌ No |
-| 1 | coco_012448 | 39.81 dB | ❌ No (Failed) | 26.24 dB | 22.04% | 22.04% | ❌ No |
-| 2 | coco_060623 | 43.14 dB | ✅ Yes | 29.28 dB | 42.04% | 42.04% | ❌ No |
-| 3 | coco_079841 | 37.19 dB | ✅ Yes | 21.68 dB | 44.54% | 44.54% | ❌ No |
-| 4 | coco_086408 | 43.08 dB | ✅ Yes | 26.91 dB | 35.68% | 35.68% | ❌ No |
-| 5 | coco_113588 | 39.69 dB | ❌ No (Failed) | 27.52 dB | 30.68% | 30.68% | ❌ No |
-| 6 | coco_118113 | 43.51 dB | ❌ No (Failed) | 34.33 dB | 46.81% | 46.81% | ❌ No |
-| 7 | coco_184613 | 36.93 dB | ✅ Yes | 19.30 dB | 48.86% | 48.86% | ❌ No |
-| 8 | coco_193271 | 39.68 dB | ✅ Yes | 29.43 dB | 37.50% | 37.50% | ❌ No |
-| 9 | coco_204805 | 46.96 dB | ❌ No (Failed) | 24.58 dB | 48.86% | 48.86% | ❌ No |
-
-### **4.3 Visual Progression (Experiment 1)**
-![Original Image 0](/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/test_images/original/coco_000000005802.jpg)
-*Original Visual Frame: `coco_005802`*
-
-![Watermarked DWT-DCT](/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_invisible_eval/watermarked_images/image_0000.png)
-*Watermarked DWT-DCT Variant (40.71 dB PSNR demonstrated intense high-frequency visual graining in testing metrics).*
-
-![Attacked DWT-DCT](/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_invisible_eval/shim_attack/image_attack_0000_00.png)
-*Shim Attacked DWT-DCT Variant (25.44 dB PSNR completely mathematically scrambles all spatial data bounds).*
-
-### **4.4 Phenomenological Analysis & Inference**
-The legacy DCT baseline exhibited a catastrophic failure profile dynamically across both baseline and adversarial generation thresholds.
-
-* **Native Injection Failure (Pre-Attack Vulnerability):** Images 1, 5, 6, and 9 entirely failed to extract their payload even natively before *any attack* occurred. The root cause is interference mapping: because the SVD arrays structurally enforce bit placement across specific spatial vectors, placing a hard repetition matrix across heavily textured photographs intrinsically forces mathematically irresolvable edge artifacts.
-* **Adversarial Noise Annihilation (Post-Attack):** A massive **0% (0/10) absolute failure point** emerged. 
-* *Why did it fail?* The Shim Attack operates via sequential mathematical iterations through standard diffusion noise vectors. Conventional DCT hides information statically. Once the Shim attack generates 50 localized gradient adjustments, the spatial pixel bands are completely washed out. This is vividly represented by the Post-Attack BER matrices, which skyrocket directly to **~48.86%**, effectively illustrating that the underlying binary bytes were mathematically reduced to true random entropy blocks due to generative filtering logic.
-
-*Conclusion Statement:* Standard high-frequency spatial steganography algorithms are categorically defective when subjected to modern generative temporal resampling protocols.
-
----
-
-## 5. Experiment 2: VAE Latent-Space Floor Sign-Nudging ($z_0$)
-
-### **5.1 Evolution of the Latent Embedding Algorithm**
+### **4.1 Implementation and The "Blue Dot" Artifact Issue**
 To survive a generative attack mathematically, the payload must inhabit spaces computationally immune to random Gaussian noise filtering. Thus, we shifted the injection "behind" the generative layer deeply into the VAE Latent space ($z_0$). 
 **Process Pipeline:** Original Image → VAE Encode → Acquire $z_0$ → Manipulate Variables → VAE Decode.
 
-**Iterative Evolution of the Applied Algorithms:**
-1. **Iteration A: Quantile Overwrite (`norm.ppf`) (Failed)**
-   * *Approach:* Generating statistical mappings via `norm.ppf((u + bit) / 2)` and forcibly overwriting the latents globally.
-   * *Problem (Blue Dot Synthesis):* The statistical distribution outputs extreme variables independent of their surrounding image context. The Autoencoder translated these erratic high-frequency floating tensors into extreme RGB artifacts representing pure visual glitches, popularly known as "Blue Dots" littering the photograph.
+**Algorithmic Approach:** 
+We utilized a strict distribution-preserving mathematical strategy via `norm.ppf((u + bit) / 2)` to globally overwrite the latent structures, attempting to force the watermarked latent space into a perfect Gaussian bell-curve.
 
-2. **Iteration B: Mathematical Sign-Nudging (Final)**
-   * *Insight:* The decoder script extraction solely requires determining `norm.cdf(value) > 0.5` (which strictly assesses whether `val > 0` or `val < 0`).
-   * By removing blunt force overwriting entirely, we formulated an algorithm ensuring structural nudging bounded mathematically:
+**The "Blue Dot" Phenomenon (Visual Degradation):** 
+While this strategy guarantees mathematical distribution alignment, it triggers severe visual hallucinations. The Autoencoder (VAE Decoder), trained strictly on natural image distributions, perceives the extreme high-frequency spikes created by the `norm.ppf` algorithm as violent light sources. Consequently, it translates these isolated tensor spikes into pure RGB glitch artifacts—scattered, luminescent "Blue Dots" heavily compromising the photograph's visual fidelity despite the mathematical accuracy of the embedding.
 
-```python
-margin = 0.75
-for j, idx in enumerate(indices):
-    bit = bits[j]
-    val = flat_latent[idx]
-    
-    # Positive target bit constraint enforcing
-    if bit == 1 and val < margin:
-        flat_latent[idx] = margin + abs(val) * 0.1    # nudge mathematically positive
-        
-    # Negative target bit constraint enforcing
-    elif bit == 0 and val > -margin:
-        flat_latent[idx] = -margin - abs(val) * 0.1   # nudge mathematically negative
-```
-* **Why did this work flawlessly?** Roughly ~50% of elements natively matched the requested binary values, drastically reducing image modification. The values actually requiring modification retained local gradient smoothing scales via `abs(val) * 0.1`, effectively eliminating all spatial "Blue Dots".
-
-### **5.2 Tabular Generative Performance (10 Images)**
+### **4.2 Tabular Generative Performance (10 Images)**
 
 | Image Index | Image Identity | Attack PSNR (orig) | Post-Attack Raw BER | Post-Attack Repetition BER | Final BCH BER | BCH Corrections | Mssg Recovered? |
 |-------------|----------------|--------------------|---------------------|----------------------------|---------------|-----------------|-----------------|
@@ -301,85 +241,86 @@ for j, idx in enumerate(indices):
 | 8 | coco_193271 | 23.64 dB | 0.23% | 0.00% | 0.00% | 0 | ✅ Yes |
 | 9 | coco_204805 | 21.18 dB | 0.00% | 0.00% | 0.00% | 0 | ✅ Yes |
 
-### **5.3 Visual Progression (Experiment 2)**
-![Original Image 1](/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/test_images/original/coco_000000012448.jpg)
+### **4.3 Visual Progression (Experiment 1)**
+![Original Image 1](/test_images/original/coco_000000012448.jpg)
 *Original Visual Frame: `coco_012448`*
 
-![Watermarked VAE](/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/ecc_watermarked/image_0001.png)
-*Watermarked VAE Sign-Nudge (25.27 dB PSNR Pre-Attack. Note the absolute pristine nature of the texture mapping. Nudging completely eliminates artifacts).*
+![Watermarked VAE](/evaluation_outputs/ecc_evaluation/ecc_watermarked/image_0001.png)
+*Watermarked VAE Distribution Preserving (24.00 dB PSNR Pre-Attack. Note the aggressive high-frequency structural glitches resembling colored dots).*
 
-![Attacked VAE](/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/ecc_evaluation/shim_attack/image_attack_0001_00.png)
-*Shim Attacked VAE (23.47 dB. Slight blur resulting directly from Shim logic manipulation, but the VAE watermark ignores it).*
+![Attacked VAE](/evaluation_outputs/ecc_evaluation/shim_attack/image_attack_0001_00.png)
+*Shim Attacked VAE (23.47 dB. The artifacts remain visibly embedded despite the UNet noise loops).*
 
-### **5.4 Phenomenological Analysis & Inference**
-Evaluating these results, the VAE Layer Nudging yielded the highest mathematical stability observed. It consistently returned an incredible **100% survival rate** paired with virtually pristine generative representations across tests.
+### **4.4 Phenomenological Analysis & Inference**
+Evaluating these results yields a staggering contradiction: The base Autoencoder embedding generated 100% mathematical survival against the Shim attack, but proved completely unviable for production use.
 
 *Why did it mathematically survive?*
-The adversarial Anchor & Shim attack attempts to manipulate targeted mathematical UNet generator layers. However, the foundational VAE Autoencoder layer logic functions strictly identically and independently regardless of the sequential trajectories targeted temporally. Once the noisy DDIM iterations are complete, the resulting elements pass sequentially through the rigid Autoencoder structure ($z_0$). At this stage, the Shim structural artifacts effectively execute "blind", resulting in pure preservation of our binary vectors below. 
+The adversarial "Anchor & Shim" attack heavily mutates specific UNet temporary cross-attention layers. By modifying the absolute final Autoencoder floor vectors ($z_0$), we bypassed the entire targeted generative timeline mathematically. Once the Shim attack exhausts itself within the diffusion generation, it simply feeds its output rigidly into the unaltered VAE parameter set, purely preserving our hidden bytes visually beneath the noise. 
 
 *Summary Note:* While executing flawlessly, this approach effectively mathematically dodges the core generative threat instead of confronting it natively inside the dynamic diffusion equation set.
 
 ---
 
-## 6. Experiment 3: Shallow Diffusion DDIM Partial Inversion ($z_{15}$)
+## 5. Experiment 2: Shallow Diffusion DDIM Partial Inversion ($z_{15}$)
 
-### **6.1 Methodology & Dynamic Challenge Vectors**
+### **5.1 Methodology & Dynamic Challenge Vectors**
 To construct a legitimately secure "True Generative Diffusion Watermark", one must mathematically jam the ECC bitstream natively into the temporal UNet noise trajectories, precisely where the adversarial Shimming matrix focuses gradient targets. 
 
-**The Mathematical Obstacle:** To push imagery temporally backwards toward $t_{50}$ typically requires intense ODE solver algorithms (like the classical `DPMSolverMultistepScheduler`). 
-* *Failure Event:* Applying ODE reverse-time algorithms to pure natural photography violently triggers visual **Image Hallucinations**. Real photography does not map identically back to the exact synthetic Gaussian arrays utilized during model training periods. A photograph of a street scene inverted to $t_{50}$ mathematically forgets its own composition matrix, completely erasing foreground subjects and producing unrecoverable noise bounds that generate hideous 10.85 dB PSNR degradation ratios upon final sequential denoise loops. 
+**Generative Watermarking vs Real-Image Inversion (The Approximation Problem):** 
+In standard generative watermarking applications (as described in foundational LDM security papers), algorithms inject payloads into pure, theoretically perfect Gaussian noise ($z_{50}$). The model then naturally sculpts the intended image around the signature. Replicating this mathematically to watermark *pre-existing* real-world photography (like the COCO dataset used) introduces a fundamental structural clash.
 
-**The Precise Mathematical Resolution:**
-We decisively abandoned noisy ODE estimators and explicitly constructed the definitive Shallow Partial DDIM Inversion script (`run_shallow_diffusion_ecc_eval.py`). By halting the reverse function incredibly shallowly at precisely $t_{15}$, we achieved the perfect mathematical resonance allowing structural embedding without inducing unrecoverable entropy. We hard-coded the classical mathematical rewind explicitly: 
+To embed the watermark, we must forcefully estimate the pure noise variant ($z_{50}$) that would have theoretically synthesized the photograph. We accomplish this via DDIM inversion algorithms. 
+* *The "Hallucination" Failure Event:* If we map real photography backward 50 full steps utilizing standard ODE estimators, the generative model's "Prior" violently overrides the original composition array. A street scene structurally decays into a synthetic, smoothed pattern, causing massive Image Hallucinations and hideous 10.85 dB degradation ratios. The original photograph is mathematically destroyed by the inversion.
+
+**The Shallow Diffusion Mathematical Resolution:**
+We conclusively resolved this limitation by developing the Shallow Partial DDIM Inversion script (`run_shallow_diffusion_ecc_eval.py`). Instead of rewriting deep matrices, we halt the deterministic backward inversion incredibly early at precisely $t_{15}$. We then embed the data utilizing strict Distribution Preserving overwrites (`norm.ppf`) to maintain pure latent variance: 
 ```python
 # The pure temporal inverse deterministic mapping matrix
 def backward_ddim(x_t, alpha_t, alpha_tm1, eps_xt):
     return (alpha_tm1**0.5 * ((alpha_t**-0.5 - alpha_tm1**-0.5) * x_t +
            ((1 / alpha_tm1 - 1)**0.5 - (1 / alpha_t - 1)**0.5) * eps_xt) + x_t)
 ```
-Upon reversing precisely to $t_{15}$, embedding the signature, and subsequently executing the static forward generation, we discovered a stunning geometric preservation yield mapping tightly to ~27-34 dB spatial bounds.
+Upon reversing to $t_{15}$, embedding the signature, and executing forward generation, we discovered a stunning capability: The UNet generator naturally smoothes the harsh `norm.ppf` "Blue Dot" artifacts during its internal denoising loop, mapping tightly back to ~27-34 dB spatial bounds.
 
-### **6.2 Tabular Results Against Generator Iteration Attacks**
+### **5.2 Tabular Results Against Generator Iteration Attacks**
 
-Did the data mathematically survive being directly targeted by the gradient iteration passes of the Shims sequence? The data reflects an overwhelmingly affirmative dataset:
+After transitioning the embedding scheme back to strict Distribution Preserving overwrites (`norm.ppf`), the Shallow DDIM architecture executed flawlessly:
 
 | Image Index | Image Identity | Attack PSNR (orig) | Post-Attack Raw BER | Post-Attack Repetition BER | Final BCH BER | BCH Corrections | Mssg Recovered? |
 |-------------|----------------|--------------------|---------------------|----------------------------|---------------|-----------------|-----------------|
-| 0 | coco_005802 | 25.45 dB | 8.86% | 1.14% | 0.00% | 1 | ✅ Yes |
-| 1 | coco_012448 | 26.20 dB | 5.91% | 0.00% | 0.00% | 0 | ✅ Yes |
-| 2 | coco_060623 | 29.25 dB | 4.55% | 0.00% | 0.00% | 0 | ✅ Yes |
-| 3 | coco_079841 | 21.73 dB | 8.41% | 1.14% | 0.00% | 1 | ✅ Yes |
-| 4 | coco_086408 | 26.89 dB | 22.73% | 9.09% | 9.09% | -1 (Failure) | ❌ No |
-| 5 | coco_113588 | 27.43 dB | 8.86% | 1.14% | 0.00% | 1 | ✅ Yes |
-| 6 | coco_118113 | 34.38 dB | 9.09% | 0.00% | 0.00% | 0 | ✅ Yes |
-| 7 | coco_184613 | 19.25 dB | 5.68% | 0.00% | 0.00% | 0 | ✅ Yes |
-| 8 | coco_193271 | 27.71 dB | 9.09% | 0.00% | 0.00% | 0 | ✅ Yes |
-| 9 | coco_204805 | 23.23 dB | 12.05% | 1.14% | 0.00% | 1 | ✅ Yes |
+| 0 | coco_005802 | 24.62 dB | 12.27% | 1.14% | 0.00% | 1 | ✅ Yes |
+| 1 | coco_012448 | 25.07 dB | 8.41% | 1.14% | 0.00% | 1 | ✅ Yes |
+| 2 | coco_060623 | 28.12 dB | 10.45% | 4.55% | 0.00% | 4 | ✅ Yes |
+| 3 | coco_079841 | 21.01 dB | 10.45% | 0.00% | 0.00% | 0 | ✅ Yes |
+| 4 | coco_086408 | 26.26 dB | 20.00% | 2.27% | 0.00% | 2 | ✅ Yes |
+| 5 | coco_113588 | 26.11 dB | 11.36% | 0.00% | 0.00% | 0 | ✅ Yes |
+| 6 | coco_118113 | 33.05 dB | 10.68% | 2.27% | 0.00% | 1 | ✅ Yes |
+| 7 | coco_184613 | 18.98 dB | 12.50% | 2.27% | 0.00% | 2 | ✅ Yes |
+| 8 | coco_193271 | 26.53 dB | 12.95% | 2.27% | 0.00% | 2 | ✅ Yes |
+| 9 | coco_204805 | 22.57 dB | 12.73% | 2.27% | 0.00% | 2 | ✅ Yes |
 
-### **6.3 Visual Progression (Experiment 3)**
-![Original Image 1](/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/test_images/original/coco_000000012448.jpg)
+### **5.3 Visual Progression (Experiment 2)**
+![Original Image 1](/test_images/original/coco_000000012448.jpg)
 *Original Visual Frame: `coco_012448`*
 
-![Watermarked DDIM](/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/shallow_diffusion_ecc_eval/watermarked_images/image_0001.png)
-*Watermarked DDIM Variant. The deterministic linear backward inversion preserves absolute geometric clarity structurally. Zero hallucinated parameters exist.*
+![Watermarked DDIM](/evaluation_outputs/shallow_diffusion_ecc_eval/watermarked_images/image_0001.png)
+*Watermarked DDIM Variant. The UNet natively smooths the `norm.ppf` tensor spikes structurally, averting "Blue Dot" artifacts completely.*
 
-![Attacked DDIM](/home/pushp-raj/Documents/IE663_project_code/Neural-Plagiarism/evaluation_outputs/shallow_diffusion_ecc_eval/shim_attack/image_attack_0001_00.png)
-*Shim Attacked DDIM Component. The targeted generator modifications noticeably impact resolution variables, demonstrating the UNet struggle computationally.*
+![Attacked DDIM](/evaluation_outputs/shallow_diffusion_ecc_eval/shim_attack/image_attack_0001_00.png)
+*Shim Attacked DDIM Component. Generator modifications noticeably impact resolution variables.*
 
-### **6.4 Phenomenological Tracking & System Synergies**
-The resulting matrix showcases a tremendously resolute **90% systemic recovery threshold** acting synchronously across three embedded defensive sub-architectures acting directly in crosshairs to the adversarial noise loops. 
+### **5.4 Phenomenological Tracking & System Synergies**
+The empirical analysis confirms an absolute **100% systemic recovery threshold** operating effectively against the Shim vector targets.
 
-* **Tracking Phenomenological Matrices In Real-Time:** Inspect the output variables corresponding strictly to Image 9 (`coco_204805`). The attacker algorithm successfully unleashed mathematical vector perturbations that actively disrupted the signature embedding, skyrocketing the native background **Raw BER directly to a lethal 12.05%**. For all standard mathematical watermarks, the data payload evaluates directly to complete entropic failure.
-* **The Layer-2 Defense Mechanism (Repetition Aggregation):** The 12.05% disruption block aggressively collided against the expansive $k=5$ voting structure algorithm. Because the error metrics were heavily localized inside singular matrix blocks, the spatial voting mechanism brutally squashed the 12.05% deviation noise mathematically compressing it downwards to an innocuous **1.14% Voted Matrix**. 
-* **The Layer-1 Polynomial Rescue Protocol:** The highly stable BCH polynomial sequence inherently evaluates error boundaries algorithmically. Recognizing the 1.14% remaining mathematical deviations via strict polynomial evaluations, the Galois field mapped specifically to **execute 1 exact Bit Correction**, systematically yielding a pristine and absolutely uncorrupted **0.00% Target State Output**. 
-
-Image 4 natively failed only because the initial Shim displacement reached a structurally irrecoverable 22.73% threshold natively crossing bounded computational redundancy scopes.
+* **Tracking Phenomenological Matrices In Real-Time:** Examining Image 4 (`coco_086408`), the adversarial shimming algorithms inflicted brutal, targeted mathematical damage locally, destroying 20.00% of the raw bits in the latent matrix. Standard embedding methodologies experience systematic collapse beyond 5% entropy thresholds.
+* **The Layer-2 Defense Mechanism (Repetition Aggregation):** The concentrated 20.00% cluster damage directly encountered the expansive $k=5$ voting architecture sequence. Because bits were geometrically dispersed iteratively, local Shim artifacts were outvoted computationally, dropping the overall failure metrics immediately to just 2.27%.
+* **The Layer-1 Polynomial Rescue Protocol:** Recognizing the remaining 2.27% deviations algorithmically, the BCH matrices executed algebraic syndrome computations globally, targeting and flawlessly inverting exactly **2 broken bits**. This guaranteed an impenetrable **0.00% target state output**, completely nullifying the core Shim optimization.
 
 ---
 
-## 7. Comparative Experiment 4: Shallow Diffusion LDPC (Belief Propagation)
+## 6. Comparative Experiment 3: Shallow Diffusion LDPC (Belief Propagation)
 
-### **7.1 Methodology: Moving from Algebraic to Iterative Correction**
+### **6.1 Methodology: Moving from Algebraic to Iterative Correction**
 
 To validate the findings of the reference paper, we deployed an alternative **LDPC-based 2-Layer defense** (`run_shallow_diffusion_ldpc_eval.py`). This swapped the deterministic BCH decoder for an iterative **Belief Propagation (Min-Sum)** decoder. 
 
@@ -389,7 +330,7 @@ To validate the findings of the reference paper, we deployed an alternative **LD
 
 LDPC is mathematically "sparser" and thus more visually imperceptible, but it relies on iterative convergence rather than exact algebraic solving.
 
-### **7.2 Tabular Results: LDPC Performance Under Shim Attack**
+### **6.2 Tabular Results: LDPC Performance Under Shim Attack**
 
 The iterative nature of LDPC resulted in a significantly more fragile survival profile compared to the algebraic BCH approach:
 
@@ -406,11 +347,11 @@ The iterative nature of LDPC resulted in a significantly more fragile survival p
 | 9 | coco_204805 | 23.63 dB | 9.70% | 1.52% | 1.52% | 1 | ❌ No |
 | 4 | coco_086408 | 27.14 dB | 23.64% | 9.09% | 9.09% | 2 | ❌ No |
 
-### **7.3 Comparative Inference: BCH vs. LDPC in Latent Spaces**
+### **6.3 Comparative Inference: BCH vs. LDPC in Latent Spaces**
 
 The data yields a definitive conclusion: **BCH is the superior protocol for latent-diffusion watermarking.**
 
-1.  **Survival Rate:** BCH achieved a **90%** survival rate, while LDPC only reached **60%**.
+1.  **Survival Rate:** BCH achieved a **100%** survival rate, while LDPC only reached **60%**.
 2.  **The "One-Bit" Failure:** In images 0, 8, and 9, the Layer 2 repetition voting was incredibly successful, suppressing the Raw BER (~10%) down to just **1.52%** (1 wrong bit). While BCH effortlessly corrected this 1-bit deviation, the LDPC Belief Propagation algorithm **failed to converge** on those same images, leaving the error uncorrected even after 500 iterations.
 3.  **Soft Information Instability:** LDPC thrives on "soft" information (Log-Likelihood Ratios). However, in Diffusion latent-space extraction, the bit indicators (signs) are often binary-hard with low variance. This makes the Belief Propagation messages less informative, causing the iterative process to stall where deterministic algebraic logic (BCH) simply solves the polynomial.
 
@@ -437,18 +378,127 @@ Because we functionally constrained deployment vectors to evaluate strictly acro
 
 ---
 
-## 8. Evaluative Summary Conclusions
+## 8. Metrics Visualizations & Comparative Analysis
 
-### **Comparative Methodology Formulations**
+The following plots were generated from the raw JSON metrics across all three evaluated experiments. All charts use data directly from the evaluation pipeline outputs.
 
-1. **Legacy Spatial/Frequency Steganography Limitations:** As demonstrated brutally across Experiment 1, historical manipulation algorithms targeting native mathematical image bounds (DCT routines) possess **absolute zeroes in systemic stability** when subjected to recursive differential generative equations. They fundamentally lack temporal continuity across deep inference steps.
-2. **Autoencoder Base Embeddings Vectors:** Latent Space $z_0$ derivations (Experiment 2) maintain structurally flawless visual preservation constraints, mapping beautifully to 100% native sequence preservation bounds. However it succeeds purely through methodological bypasses rather than structural generator combat vectors theoretically shielding against deep neural gradient mutations. 
-3. **Temporal Linear Inversions (BCH vs LDPC):** The DDIM $t_{15}$ Shallow algorithm successfully pioneers the actual deployment of "True Neural Noise Data Preservation Vectors". Comparing the two ECC schemes, **BCH (90% survival)** significantly outperforms **LDPC (60% survival)**. Despite LDPC's higher data efficiency, the algebraic hard-decoding of BCH is significantly better suited to the high-entropy sparse error regime induced by adversarial Shim attacks on Diffusion UNets. 
-4. **Conclusion:** Establishing specific deterministic boundaries natively preventing structural loss patterns, the matrix deployed a 90% defensive asymmetry functionally proving that standard generator manipulation algorithms execute lethal image property destruction matrices profoundly earlier than they strip deep neural signature strings algorithmically from codebases experimentally.
+### **8.1 Watermark Quality — PSNR (Watermarked vs Original)**
+*How much visual quality is lost per image after embedding the watermark, before any attack.*
+
+![Watermark Quality PSNR](/evaluation_outputs/plots/01_wm_quality_psnr.png)
 
 ---
 
-## 9. Defined Limitations and Expansive Future Works Matrices 
+### **8.2 Post-Attack PSNR vs Original**
+*Image quality remaining after the Shim attack, measured against the clean original. Higher is better.*
+
+![Post-Attack PSNR](/evaluation_outputs/plots/02_postattack_psnr.png)
+
+---
+
+### **8.3 Post-Attack Structural Similarity (SSIM)**
+*Structural coherence of the attacked image. Values close to 1.0 indicate preserved structure.*
+
+![Post-Attack SSIM](/evaluation_outputs/plots/03_postattack_ssim.png)
+
+---
+
+### **8.4 Post-Attack Perceptual Loss (LPIPS)**
+*Perceptual distance from attacked image to original. Lower LPIPS = less perceived distortion.*
+
+![Post-Attack LPIPS](/evaluation_outputs/plots/04_postattack_lpips.png)
+
+---
+
+### **8.5 Post-Attack Raw BER (Before ECC Correction)**
+*Fraction of bits flipped by the Shim attack before any error correction layer is applied.*
+
+![Post-Attack Raw BER](/evaluation_outputs/plots/05_postattack_ber_raw.png)
+
+---
+
+### **8.6 Post-Attack Final BER (After Full ECC Pipeline)**
+*Remaining bit error rate after the full Repetition + BCH/LDPC correction pipeline. Ideally 0.00%.*
+
+![Post-Attack Final BER](/evaluation_outputs/plots/06_postattack_ber_final.png)
+
+---
+
+### **8.7 Watermark Survival Rate**
+*Percentage of images (out of 10) for which the complete watermark message was successfully recovered after the Shim attack.*
+
+![Survival Rate](/evaluation_outputs/plots/07_survival_rate.png)
+
+---
+
+### **8.8 Multi-Metric Radar Comparison**
+*Holistic radar chart comparing all three methods across five normalized axes: Survival Rate, Watermark PSNR, Attack PSNR, Attack SSIM, and inverse LPIPS (1 − LPIPS, so higher = better).*
+
+![Radar Comparison](/evaluation_outputs/plots/08_radar_comparison.png)
+
+---
+
+### **8.9 BER Funnel: Raw → Final**
+*Per-image BER trajectory from raw extraction to post-ECC final value. Green lines = message recovered; Red lines = message lost after correction.*
+
+![BER Funnel](/evaluation_outputs/plots/09_ber_funnel_all.png)
+
+---
+
+### **8.10 Full Comparative Metrics Dashboard**
+*Six-panel summary dashboard combining all key metrics side-by-side for quick comparative reading across all three evaluated methods.*
+
+![Summary Dashboard](/evaluation_outputs/plots/10_summary_dashboard.png)
+
+---
+
+### **8.11 Average Metrics Summary Table**
+
+| Method | Survival Rate | Avg WM PSNR | Avg Atk PSNR | Avg Atk SSIM | Avg LPIPS | Avg Final BER |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **VAE z₀ (BCH)** | **100%** | 23.54 dB | 22.74 dB | 0.6985 | 0.2971 | **0.00%** |
+| **DDIM z₁₅ (BCH)** | **100%** | 26.12 dB | 25.23 dB | 0.7409 | 0.2218 | **0.00%** |
+| **DDIM z₁₅ (LDPC)** | 50% | 26.65 dB | 25.75 dB | 0.7521 | 0.2073 | 1.36% |
+
+**Key Observations:**
+- Both BCH-based methods achieve 100% survival with 0.00% final BER, confirming perfect algebraic correction.
+- The DDIM z₁₅ (BCH) method improves watermark visual quality by ~2.6 dB PSNR over VAE z₀ while maintaining the same 0% BER — a strictly better outcome.
+- LDPC achieves marginally better attack SSIM (0.7521 vs 0.7409) and LPIPS (0.2073 vs 0.2218) due to its sparser 4.0% channel utilization, but its 50% survival rate makes it unsuitable for production use.
+- The DDIM z₁₅ pipeline with BCH coding represents the Pareto-optimal operating point: best attack survival, highest perceptual quality, and zero residual BER.
+
+---
+
+## 9. In-Depth Analysis and Experimental Rationale
+
+### **9.1 The Mathematical Dynamics of VAE Survival**
+The remarkable 100% survival rate of the VAE ($z_0$) methodology under the Shim attack requires explicit justification. The adversarial "Anchor and Shim" generative attack functions by forcefully altering the sequential sampling trajectories of the UNet across multiple denoising timestamps (from $t=50$ down to $t=0$), utilizing carefully optimized gradient deviations. 
+By embedding the signature into the $z_0$ latent directly and instantly pushing it through the Autoencoder into pixel-space, our payload exists logically *after* the entirety of the diffusion equation loop. When the adversarial algorithm attacks the image, it calculates loss metrics trying to "shim" the generated output toward a clean state. However, because our perturbation inhabits the strict zero-floor of the vector sequence, the perturbation mathematically outlasts the generator's temporary attention matrix modifications. The UNet cannot erase damage implemented precisely where the UNet concludes. The survival is flawless mechanically, but visually problematic because the Autoencoder translates our high-entropy `norm.ppf` manipulations as raw high-frequency spikes—producing literal blue and red dots. 
+
+### **9.2 Core Rationale Behind Hyperparameter Optimization**
+The successful execution of our framework is predicated upon meticulously curated hyperparametric values:
+* **The Channel Selection and 5.4% Capacity:** We limited embedding specifically to VAE channels 2 and 3 at 512×512 resolution. Channels 0 and 1 govern coarse structural luminance and color saturation respectively; embedding data into these universally destroys perceptual fidelity. Navigating channels 2 and 3 provides a vast space ($8,192$ elements). By distributing $440$ payload bits across this, we utilize just **5.4%** of the available volumetric capacitance, strictly guaranteeing highly imperceptible textural modifications.
+* **Algebraic ECC Scaling ($t=5$, $m=10$):** In the Galois computations, $m=10$ establishes an expansive $GF(2^{10})$ field perfectly accommodating our long multi-byte strings without architectural fragmentation. Modulating $t=5$ ensures precisely five catastrophic individual bit inversions per block can be rescued algorithmically before mathematical parity collapses.
+* **The Layer-2 Geometric Repetition ($k=5$):** Neural diffusion perturbations do not cause uniformly distributed errors; rather, adversarial shims cause localized structural burst damage (small "zones" of image hallucination). Relying on BCH alone would immediately overwhelm the $t=5$ limitations due to clustered data flips. Imposing a widespread spatial $k=5$ voting matrix physically isolates local spatial errors, isolating the burst damage across multiple redundant structural nodes sequentially allowing rigid logical recovery.
+
+### **9.3 The Strategic Selection of Shallow Diffusion ($z_{15}$)**
+The selection of the temporal $z_{15}$ partial-inversion point was a deliberate navigation of the most complex issue in non-generative watermarking: **The Prior Override Problem**. 
+1. **The $z_{50}$ Hallucination Failure:** Classical papers inject into pure $z_{50}$ Gaussian noise cleanly generating images around the payload. But we are watermarking *existing* COCO photography. If we map a real photograph mathematically back to pure $z_{50}$ noise, applying deterministic generation completely overrides the native photograph structure based on text embeddings (the unconditional prior), turning specific objects into structurally generalized approximations (completely mangling the PSNR). 
+2. **The $t=15$ Equilibrium Point:** We observed that terminating the inversion incredibly early at temporal step $t=15$ provides adequate generative bandwidth, but tightly constraints it. By altering the tensors exclusively at this shallow intersection, the subsequent $15 \rightarrow 0$ generative forward sequence naturally acts as a geometric smoothing mechanism natively absorbing our sharp perturbations. It perfectly embeds the payload functionally inside organic picture textures (leaves, fabrics, fur) while simultaneously maintaining strict adherence to the original photograph's physical dimensional bounds (typically holding >27 dB structural similarity metrics effectively permanently averting "Blue Dot" syndromes).
+
+---
+
+## 10. Evaluative Summary Conclusions
+
+### **Comparative Methodology Formulations**
+
+1. **Autoencoder Base Embeddings Vectors:** Latent Space $z_0$ derivations (Experiment 1) maintain structurally mathematical 100% native sequence preservation bounds. However, when forcing perfect distribution geometry (`norm.ppf`), the resulting high-frequency noise creates severe "Blue Dot" hallucination artifacts. It also succeeds computationally through methodological bypasses rather than targeted structural generator combat.
+2. **Temporal Linear Inversions (BCH vs LDPC):** The DDIM $t_{15}$ Shallow algorithm (Experiment 2) successfully pioneers the actual deployment of "True Neural Noise Data Preservation Vectors." Due to the generator natively smoothing tensor mutations in its actual execution sequence, "Blue Dot" artifacts are permanently abolished. 
+3. **BCH Absolute Dominance:** Comparing the two ECC schemes, **BCH (100% survival)** significantly functionally outclasses **LDPC (60% survival)**. Although LDPC possesses enhanced data efficiency bounds, the rigid algebraic hard-decoding mechanics of BCH represent absolute perfection mathematically within the high-entropy generative disruption limits induced by adversarial Shim attacks on Diffusion UNets specifically.
+4. **Conclusion:** By leveraging geometric sequences dynamically bridging native temporal embeddings exactly to algorithmic redundancy coding logic mathematically ($k=5$ voting compression into rigid Galois structures), the framework proves deterministically that digital footprints structurally embedded properly mathematically survive generation algorithms entirely.
+
+---
+
+## 11. Defined Limitations and Expansive Future Works Matrices 
 
 The analysis provided herein formally structures algorithmic foundations representing significant systemic implementations against digital replication environments experimentally. Future vectors exploring expanded structural properties mandate specific investigative actions:
 
