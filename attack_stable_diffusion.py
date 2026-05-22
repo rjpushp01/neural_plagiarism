@@ -146,7 +146,7 @@ class AttackStableDiffusionPipeline(InversableStableDiffusionPipeline):
             def unet_forward(lmi, te):
                 return self.unet(lmi, t, encoder_hidden_states=te).sample
             noise_pred = torch.utils.checkpoint.checkpoint(
-                unet_forward, latent_model_input, text_embeddings, use_reentrant=False
+                unet_forward, latent_model_input, text_embeddings, use_reentrant=False, preserve_rng_state=False
             )
         else:
             noise_pred = self.unet(latent_model_input, t, encoder_hidden_states=text_embeddings).sample

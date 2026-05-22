@@ -291,7 +291,7 @@ for i, ori_img_path in enumerate(ori_img_paths):
             for ep in range(args.iters):
                 gc.collect(); torch.cuda.empty_cache()
                 
-                optimizer.zero_grad()
+                optimizer.zero_grad(set_to_none=True)
                 outputs_attack = pipe.generate_with_shims(
                     empty_prompt,
                     num_images_per_prompt=1,

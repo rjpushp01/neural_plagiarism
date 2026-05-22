@@ -1,0 +1,16 @@
+Info Thu Apr 16 22:53:11 2026 | Arguments: {'target_folder': 'demo_outputs/ecc/VAE_BCH/watermarked', 'start': 0, 'end': 1, 'gpu': 0, 'image_length': 512, 'model_id': 'Manojb/stable-diffusion-2-1-base', 'num_images': 1, 'guidance_scale': 7.5, 'num_inference_steps': 50, 'attack_num_inference_steps': 50, 'output_folder': 'demo_outputs/ecc/VAE_BCH/attacked', 'start_step': 45, 'shortcut_step': -1, 'iters': 5, 'lr': 0.01, 'gamma1': 0.1, 'gamma2': 100000.0, 'gamma3': 0.001, 'eps': [10.0], 'k': [47], 'watermark_text': 'test', 'watermark_method': 'dwtDctSvd', 'gen_seed': 0, 'decode_inv': False, 'original_folder': None, 'mask_attack': False}
+Info Thu Apr 16 22:53:15 2026 | Total images 1
+Info Thu Apr 16 22:53:15 2026 | Timesteps (50): tensor([999, 979, 959, 939, 919, 899, 879, 859, 839, 819, 799, 779, 759, 739,
+        719, 699, 679, 659, 639, 619, 599, 579, 559, 539, 519, 500, 480, 460,
+        440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180,
+        160, 140, 120, 100,  80,  60,  40,  20], device='cuda:0')
+Info Thu Apr 16 22:53:25 2026 | Startup timestep 100
+Info Thu Apr 16 22:53:26 2026 | Offloaded text_encoder + VAE + anchors to CPU (freed ~1GB VRAM for optimization)
+Info Thu Apr 16 22:53:26 2026 | Optimize latent for step 47, timestep 60
+Info Thu Apr 16 22:53:28 2026 | ep 0 | loss 27.338531, loss norm 6.021798, loss latent 0.741211, loss semantic 20.575523, loss image 0.000000, grad norm 1.016421
+Info Thu Apr 16 22:53:30 2026 | ep 1 | loss 23.831205, loss norm 2.550233, loss latent 0.741211, loss semantic 20.539761, loss image 0.000000, grad norm 1.016126
+Info Thu Apr 16 22:53:32 2026 | ep 2 | loss 21.507469, loss norm 0.000000, loss latent 0.741211, loss semantic 20.766258, loss image 0.000000, grad norm 0.605267
+Info Thu Apr 16 22:53:34 2026 | ep 3 | loss 21.256641, loss norm 0.000000, loss latent 0.740723, loss semantic 20.515919, loss image 0.000000, grad norm 0.144906
+Info Thu Apr 16 22:53:36 2026 | ep 4 | loss 21.452848, loss norm 0.000000, loss latent 0.740234, loss semantic 20.712614, loss image 0.000000, grad norm 0.543071
+Info Thu Apr 16 22:53:37 2026 | Shims norm: 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 17.04, 0.00, 0.00
+Info Thu Apr 16 22:53:54 2026 | Saved attacked image: demo_outputs/ecc/VAE_BCH/attacked/image_attack_0000_00.png
